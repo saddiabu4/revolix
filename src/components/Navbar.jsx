@@ -314,13 +314,13 @@ const Navbar = () => {
 					{/* Mobile vs Tablet menu button */}
 					<button className='lg:hidden' onClick={() => setIsOpen(!isOpen)}>
 						<img src={menuImg} alt='Menu' className='w-7 h-7' />
-						
-					</button>
-					<img
+						<img
 							src={Imagelan}
 							alt=''
 							className='w-[30px] h-[30px] absolute top-5.5 right-15 rounded-sm'
 						/>
+					</button>
+					
 				</header>
 
 				{/* Mobile vs Tablet menu */}
