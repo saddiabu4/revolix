@@ -235,6 +235,7 @@ const Turnirlar = props => {
 				</div>
 			</section>
 
+						{/* Jamoalar chizigi */}
 			<section className='flex justify-center items-center px-4'>
 				<div className='container mx-auto flex flex-col items-center h-full mt-20 w-full'>
 					<div className='text-white w-full'>
