@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { FaMedal, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
+import { FaGamepad, FaInstagram, FaMedal, FaStar, FaTelegram, FaTrophy, FaUser, FaUsers, FaYoutube } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import jamoa1 from '../assets/jamoa1.png'
 import jamoa2 from '../assets/jamoa2.png'
 import jamoa3 from '../assets/jamoa3.png'
 import backgroundImage from '../assets/main.png'
 import orqaFon1 from '../assets/orqafon1.png'
+import player1Image from '../assets/oyinchi1.png'
+import player2Image from '../assets/oyinchi2.png'
+import player3Image from '../assets/oyinchi3.png'
 import statisticImage from '../assets/statistic.png'
 import turnirImage from '../assets/turnir.png'
 import { useLanguage } from '../context/LanguageContext'
@@ -97,7 +100,7 @@ const Main = () => {
 		},
 		{
 			id: 2,
-			name: "Natus Vincere",
+			name: "Team Vitality",
 			logo: jamoa2,
 			stats: {
 				wins: 25,
@@ -108,7 +111,7 @@ const Main = () => {
 		},
 		{
 			id: 3,
-			name: "Natus Vincere",
+			name: "G2 Esports",
 			logo: jamoa3,
 			stats: {
 				wins: 25,
@@ -119,7 +122,7 @@ const Main = () => {
 		},
 		{
 			id: 4,
-			name: "Natus Vincere",
+			name: "FaZe Clan",
 			logo: jamoa1,
 			stats: {
 				wins: 25,
@@ -130,7 +133,7 @@ const Main = () => {
 		},
 		{
 			id: 5,
-			name: "Natus Vincere",
+			name: "Cloud9",
 			logo: jamoa2,
 			stats: {
 				wins: 25,
@@ -143,6 +146,65 @@ const Main = () => {
 
 	const [currentSlide, setCurrentSlide] = useState(0)
 	const [currentTeamSlide, setCurrentTeamSlide] = useState(0)
+	const [currentPlayerSlide, setCurrentPlayerSlide] = useState(0)
+
+	const players = [
+		{
+			id: 1,
+			name: "s1mple",
+			flag: "🇺🇦",
+			rating: 50,
+			team: "Natus Vincere",
+			matches: 150,
+			defeats: 50,
+			wins: 100,
+			image: player1Image
+		},
+		{
+			id: 2,
+			name: "Niko",
+			flag: "🇺🇦",
+			rating: 50,
+			team: "G2",
+			matches: 150,
+			defeats: 50,
+			wins: 100,
+			image: player2Image
+		},
+		{
+			id: 3,
+			name: "Fame",
+			flag: "🇭🇷",
+			rating: 50,
+			team: "Virtus.pro",
+			matches: 150,
+			defeats: 50,
+			wins: 100,
+			image: player3Image
+		},
+		{
+			id: 4,
+			name: "ZywOo",
+			flag: "🇫🇷",
+			rating: 50,
+			team: "Team Vitality",
+			matches: 150,
+			defeats: 50,
+			wins: 100,
+			image: player1Image
+		},
+		{
+			id: 5,
+			name: "m0NESY",
+			flag: "🇷🇺",
+			rating: 50,
+			team: "G2",
+			matches: 150,
+			defeats: 50,
+			wins: 100,
+			image: player2Image
+		}
+	]
 
 	useEffect(() => {
 		// Backend dan ma'lumotlarni olish
@@ -157,7 +219,6 @@ const Main = () => {
 
 		const tournamentTimer = setInterval(() => {
 			setCurrentSlide((prev) => {
-				// Agar oxirgi slide bo'lsa, boshiga qaytish
 				if (prev >= tournaments.length - 3) {
 					return 0;
 				}
@@ -167,8 +228,16 @@ const Main = () => {
 
 		const teamTimer = setInterval(() => {
 			setCurrentTeamSlide((prev) => {
-				// Agar oxirgi slide bo'lsa, boshiga qaytish
 				if (prev >= topTeams.length - 3) {
+					return 0;
+				}
+				return prev + 1;
+			});
+		}, 3000)
+
+		const playerTimer = setInterval(() => {
+			setCurrentPlayerSlide((prev) => {
+				if (prev >= players.length - 3) {
 					return 0;
 				}
 				return prev + 1;
@@ -178,6 +247,7 @@ const Main = () => {
 		return () => {
 			clearInterval(tournamentTimer)
 			clearInterval(teamTimer)
+			clearInterval(playerTimer)
 		}
 	}, [])
 
@@ -482,7 +552,7 @@ const Main = () => {
 
 			{/* Tournaments Section */}
 			<div 
-				className="bg-[#0D0D0D] min-h-[1420px] bg-cover bg-center bg-no-repeat relative py-10"
+				className="bg-[#0D0D0D] min-h-[1400px] bg-cover bg-center bg-no-repeat relative py-10"
 				style={{
 					backgroundImage: `url(${orqaFon1})`,
 				}}
@@ -572,7 +642,7 @@ const Main = () => {
 							{tournaments.slice(currentSlide, currentSlide + 3).map((tournament, index) => (
 								<motion.div 
 									key={tournament.id} 
-									className="border-1 border-white rounded-2xl overflow-hidden"
+									className=" rounded-2xl overflow-hidden"
 									initial={{ x: window.innerWidth > 768 ? 300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
 									animate={{ x: 0, opacity: 1 }}
 									exit={{ x: window.innerWidth > 768 ? -300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
@@ -581,17 +651,17 @@ const Main = () => {
 									<img 
 										src={tournament.image} 
 										alt={tournament.title}
-										className="w-full h-[200px] sm:h-[250px] object-cover"
+										className="w-full h-[200px] sm:h-[250px] object-cover border-1 border-white"
 									/>
 									<div className="p-4 sm:p-6">
 										<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
-											<span className="text-[#FF9600] font-medium text-sm sm:text-base">{getGameText()} {tournament.game}</span>
-											<span className="text-white text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
+											<span className="text-white font-bold text-sm sm:text-base">{getGameText()} {tournament.game}</span>
+											<span className="text-white font-bold text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
 										</div>
-										<h3 className="text-white font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
+										<h3 className="text-[#FF9600] font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
 										<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-											<span className="text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
-											<span className="text-[#FF9600] font-medium text-sm sm:text-base">{getTeamsText()} {tournament.teamSize}</span>
+											<span className="font-bold text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
+											
 										</div>
 									</div>
 								</motion.div>
@@ -767,9 +837,338 @@ const Main = () => {
 							/>
 						))}
 					</div>
-
-					
+				
 				</div>
+			</div>
+
+			<div 
+				className="bg-[#0D0D0D] min-h-[1420px] bg-cover bg-center bg-no-repeat relative py-10"
+				style={{
+					backgroundImage: `url(${orqaFon1})`,
+				}}
+			>
+				<div className="absolute top-0 left-0 w-full h-50 bg-[#120B00]"></div>
+				<div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-52">
+				{/* Top Players Header */}
+				<div className="flex flex-col mb-8">
+						<motion.div 
+							initial={{ x: -100, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ duration: 0.8, ease: "easeOut" }}
+							className="flex items-center gap-4 mb-8"
+						>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "96px" }}
+								transition={{ duration: 0.3, delay: 0.2 }}
+								className="h-[5px] bg-[#FF9600]"
+							></motion.div>
+							<motion.h2 
+								initial={{ x: -50, opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								transition={{ duration: 0.5, delay: 0.4 }}
+								className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
+							>
+								TOP O'YINCHILAR
+							</motion.h2>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "577px" }}
+								transition={{ duration: 0.5, delay: 0.6 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "96px" }}
+								transition={{ duration: 0.3, delay: 0.8 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "50px" }}
+								transition={{ duration: 0.2, delay: 1 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "25px" }}
+								transition={{ duration: 0.2, delay: 1.2 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "13px" }}
+								transition={{ duration: 0.2, delay: 1.4 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+						</motion.div>
+						<motion.div 
+							initial={{ x: 100, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ duration: 0.8, delay: 1.6 }}
+							className="flex flex-wrap justify-center md:justify-end gap-4"
+						>
+							{games.map((game, index) => (
+								<motion.button
+									key={game}
+									initial={{ x: 50, opacity: 0 }}
+									animate={{ x: 0, opacity: 1 }}
+									transition={{ duration: 0.5, delay: 1.8 + index * 0.1 }}
+									onClick={() => setActiveTournamentGame(game)}
+									className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-[100px] font-kanit text-xs sm:text-sm md:text-base lg:text-[12px] font-medium transition-all duration-500 border-2 transform hover:scale-105
+										${activeTournamentGame === game 
+											? 'bg-[#FF9600] text-white border-[#FF9600] shadow-[0_0_20px_rgba(255,150,0,0.5)]' 
+											: 'bg-transparent text-white border-white hover:border-[#FF9600] hover:text-[#FF9600] hover:shadow-[0_0_20px_rgba(255,150,0,0.3)]'}`}
+								>
+									{game}
+								</motion.button>
+							))}
+						</motion.div>
+					</div>
+
+				{/* Players Grid */}
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+						{players.slice(currentPlayerSlide, currentPlayerSlide + 3).map((player) => (
+							<div key={player.id} className="rounded-2xl p-6">
+								<div className="flex items-start gap-4">
+									{/* Stats Column */}
+									<div className="flex flex-col gap-4">
+										{/* Flag and Name */}
+										<div className="flex items-center gap-2">
+											<span className="">{player.flag}</span>
+											<span className="text-white font-medium">{player.name}</span>
+										</div>
+										
+										{/* Stats */}
+										<div className="flex flex-col gap-2">
+											<div className="flex items-center gap-2">
+												<div className="bg-[#FF9600] p-2 rounded">
+													<FaStar className="text-white w-4 h-4" />
+												</div>
+												<div>
+													<span className="text-[#FF9600] text-sm">REYTING</span>
+													<p className="text-white font-bold">{player.rating}</p>
+												</div>
+											</div>
+
+											<div className="flex items-center gap-2">
+												<div className="bg-[#FF9600] p-2 rounded">
+													<FaTrophy className="text-white w-4 h-4" />
+												</div>
+												<div>
+													<span className="text-[#FF9600] text-sm">JAMOA</span>
+													<p className="text-white font-bold">{player.team}</p>
+												</div>
+											</div>
+
+											<div className="flex items-center gap-2">
+												<div className="bg-[#FF9600] p-2 rounded">
+													<FaGamepad className="text-white w-4 h-4" />
+												</div>
+												<div>
+													<span className="text-[#FF9600] text-sm">MATCHES</span>
+													<p className="text-white font-bold">{player.matches}</p>
+												</div>
+											</div>
+
+											<div className="flex items-center gap-2">
+												<div className="bg-[#FF9600] p-2 rounded">
+													<FaMedal className="text-white w-4 h-4" />
+												</div>
+												<div>
+													<span className="text-[#FF9600] text-sm">MAG'LUBIYAT</span>
+													<p className="text-white font-bold">{player.defeats}</p>
+												</div>
+											</div>
+
+											<div className="flex items-center gap-2">
+												<div className="bg-[#FF9600] p-2 rounded">
+													<FaTrophy className="text-white w-4 h-4" />
+												</div>
+												<div>
+													<span className="text-[#FF9600] text-sm">G'ALABA</span>
+													<p className="text-white font-bold">{player.wins}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									{/* Player Image */}
+									<div className="flex-1">
+										<img 
+											src={player.image} 
+											alt={player.name}
+											className="w-full h-auto object-cover"
+										/>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+
+				{/* Player Navigation Dots */}
+				<div className="flex justify-center gap-2 mb-16">
+					{Array.from({ length: players.length - 2 }).map((_, index) => (
+						<button
+							key={index}
+							className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all duration-300 ${
+								currentPlayerSlide === index ? 'bg-[#FF9600] w-4 sm:w-6' : 'bg-white/30'
+							}`}
+							onClick={() => setCurrentPlayerSlide(index)}
+						/>
+					))}
+				</div>
+
+				{/* Yangiliklar Header */}
+					<div className="flex flex-col mb-8">
+						<motion.div 
+							initial={{ x: 1500, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ duration: 1.2, ease: "easeOut" }}
+							className="flex items-center gap-4 mb-8"
+						>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "13px" }}
+								transition={{ duration: 0.2, delay: 0.2 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "25px" }}
+								transition={{ duration: 0.2, delay: 0.4 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "50px" }}
+								transition={{ duration: 0.2, delay: 0.6 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "96px" }}
+								transition={{ duration: 0.2, delay: 0.8 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "717px" }}
+								transition={{ duration: 0.3, delay: 1.0 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+							<motion.h2 
+								initial={{ x: -50, opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								transition={{ duration: 0.5, delay: 0.4 }}
+								className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
+							>
+								YANGILIKLAR
+							</motion.h2>
+							<motion.div 
+								initial={{ width: 0 }}
+								animate={{ width: "96px" }}
+								transition={{ duration: 0.2, delay: 1.4 }}
+								className="h-[5px] bg-[#FF9600] hidden md:block"
+							></motion.div>
+						</motion.div>
+						<motion.div 
+							initial={{ x: -100, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							transition={{ duration: 0.8, delay: 1.6 }}
+							className="flex flex-wrap justify-center md:justify-start gap-4"
+						>
+							{games.map((game, index) => (
+								<motion.button
+									key={game}
+									initial={{ x: -50, opacity: 0 }}
+									animate={{ x: 0, opacity: 1 }}
+									transition={{ duration: 0.5, delay: 1.8 + index * 0.1 }}
+									onClick={() => setActiveTeamGame(game)}
+									className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-[100px] font-kanit text-xs sm:text-sm md:text-base lg:text-[12px] font-medium transition-all duration-500 border-2 transform hover:scale-105
+										${activeTeamGame === game 
+											? 'bg-[#FF9600] text-white border-[#FF9600] shadow-[0_0_20px_rgba(255,150,0,0.5)]' 
+											: 'bg-transparent text-white border-white hover:border-[#FF9600] hover:text-[#FF9600] hover:shadow-[0_0_20px_rgba(255,150,0,0.3)]'}`}
+								>
+									{game}
+								</motion.button>
+							))}
+						</motion.div>
+					</div>
+
+					{/* News Grid */}
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 justify-items-center">
+						{/* News Card 1 */}
+						<div className="relative rounded-2xl overflow-hidden group cursor-pointer w-full max-w-[406px] h-[350px]">
+							<div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/80 z-10"></div>
+							<img 
+								src="https://placehold.co/406x350" 
+								alt="CS2 News"
+								className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+							/>
+							<div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+								<div className="flex items-center justify-between mb-2">
+									<div className="flex items-center gap-2">
+										<span className="text-white text-sm">O'YIN: CS2</span>
+									</div>
+									<span className="text-white text-sm">SANA: 01.04.2025 | 00:00</span>
+								</div>
+								<h3 className="text-white font-bold text-xl mb-2">CS2 da yangi personaj qo'shildi</h3>
+								<p className="text-white/80 text-sm line-clamp-2">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam lectus nisi, finibus dives vestibulum et. Aliquam quis dui.
+								</p>
+							</div>
+						</div>
+
+						{/* News Card 2 */}
+						<div className="relative rounded-2xl overflow-hidden group cursor-pointer w-full max-w-[406px] h-[350px]">
+							<div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/80 z-10"></div>
+							<img 
+								src="https://placehold.co/406x350" 
+								alt="CS2 News"
+								className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+							/>
+							<div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+								<div className="flex items-center justify-between mb-2">
+									<div className="flex items-center gap-2">
+										<span className="text-white text-sm">O'YIN: CS2</span>
+									</div>
+									<span className="text-white text-sm">SANA: 01.04.2025 | 00:00</span>
+								</div>
+								<h3 className="text-white font-bold text-xl mb-2">CS2 da yangi personaj qo'shildi</h3>
+								<p className="text-white/80 text-sm line-clamp-2">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam lectus nisi, finibus dives vestibulum et. Aliquam quis dui.
+								</p>
+							</div>
+						</div>
+
+						{/* News Card 3 */}
+						<div className="relative rounded-2xl overflow-hidden group cursor-pointer w-full max-w-[406px] h-[350px]">
+							<div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/80 z-10"></div>
+							<img 
+								src="https://placehold.co/406x350" 
+								alt="CS2 News"
+								className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+							/>
+							<div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+								<div className="flex items-center justify-between mb-2">
+									<div className="flex items-center gap-2">
+										<span className="text-white text-sm">O'YIN: CS2</span>
+									</div>
+									<span className="text-white text-sm">SANA: 01.04.2025 | 00:00</span>
+								</div>
+								<h3 className="text-white font-bold text-xl mb-2">CS2 da yangi personaj qo'shildi</h3>
+								<p className="text-white/80 text-sm line-clamp-2">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam lectus nisi, finibus dives vestibulum et. Aliquam quis dui.
+								</p>
+							</div>
+						</div>
+					</div>
+							
+				</div>
+
+				
+
 			</div>
 		</>
 	)

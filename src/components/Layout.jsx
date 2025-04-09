@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
 import Navbar from './Navbar'
 
 const Layout = () => {
@@ -9,6 +10,7 @@ const Layout = () => {
             <main className="h-full">
                 <Outlet />
             </main>
+            <Footer />
         </div>
     )
 }
