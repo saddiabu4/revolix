@@ -240,6 +240,149 @@ const Main = () => {
 		}
 	}
 
+	const getTournamentsText = () => {
+		switch(language) {
+			case 'uz':
+				return "TURNIRLAR"
+			case 'ru':
+				return "ТУРНИРЫ"
+			case 'en':
+				return "TOURNAMENTS"
+			default:
+				return "TURNIRLAR"
+		}
+	}
+
+	const getTopTeamsText = () => {
+		switch(language) {
+			case 'uz':
+				return "TOP JAMOALAR"
+			case 'ru':
+				return "ТОП КОМАНДЫ"
+			case 'en':
+				return "TOP TEAMS"
+			default:
+				return "TOP JAMOALAR"
+		}
+	}
+
+	const getGameText = () => {
+		switch(language) {
+			case 'uz':
+				return "O'YIN:"
+			case 'ru':
+				return "ИГРА:"
+			case 'en':
+				return "GAME:"
+			default:
+				return "O'YIN:"
+		}
+	}
+
+	const getDateText = () => {
+		switch(language) {
+			case 'uz':
+				return "SANA:"
+			case 'ru':
+				return "ДАТА:"
+			case 'en':
+				return "DATE:"
+			default:
+				return "SANA:"
+		}
+	}
+
+	const getPrizeText = () => {
+		switch(language) {
+			case 'uz':
+				return "SOVRIN:"
+			case 'ru':
+				return "ПРИЗ:"
+			case 'en':
+				return "PRIZE:"
+			default:
+				return "SOVRIN:"
+		}
+	}
+
+	const getTeamsText = () => {
+		switch(language) {
+			case 'uz':
+				return "JAMOALAR:"
+			case 'ru':
+				return "КОМАНДЫ:"
+			case 'en':
+				return "TEAMS:"
+			default:
+				return "JAMOALAR:"
+		}
+	}
+
+	const getWinsText = () => {
+		switch(language) {
+			case 'uz':
+				return "G'alaba:"
+			case 'ru':
+				return "Победы:"
+			case 'en':
+				return "Wins:"
+			default:
+				return "G'alaba:"
+		}
+	}
+
+	const getLossesText = () => {
+		switch(language) {
+			case 'uz':
+				return "Mag'lubiyat:"
+			case 'ru':
+				return "Поражения:"
+			case 'en':
+				return "Losses:"
+			default:
+				return "Mag'lubiyat:"
+		}
+	}
+
+	const getTotalKillsText = () => {
+		switch(language) {
+			case 'uz':
+				return "Jami o'ldirishlar:"
+			case 'ru':
+				return "Всего убийств:"
+			case 'en':
+				return "Total Kills:"
+			default:
+				return "Jami o'ldirishlar:"
+		}
+	}
+
+	const getTotalGamesText = () => {
+		switch(language) {
+			case 'uz':
+				return "Jami o'yin:"
+			case 'ru':
+				return "Всего игр:"
+			case 'en':
+				return "Total Games:"
+			default:
+				return "Jami o'yin:"
+		}
+	}
+
+	const getAllText = () => {
+		switch(language) {
+			case 'uz':
+				return "BARCHASI"
+			case 'ru':
+				return "ВСЕ"
+			case 'en':
+				return "ALL"
+			default:
+				return "BARCHASI"
+		}
+	}
+
 	return (
 		<>
 			{/* Hero Section */}
@@ -366,7 +509,7 @@ const Main = () => {
 								transition={{ duration: 0.5, delay: 0.4 }}
 								className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 							>
-								TURNIRLAR
+								{getTournamentsText()}
 							</motion.h2>
 							<motion.div 
 								initial={{ width: 0 }}
@@ -442,13 +585,13 @@ const Main = () => {
 									/>
 									<div className="p-4 sm:p-6">
 										<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
-											<span className="text-[#FF9600] font-medium text-sm sm:text-base">O'YIN: {tournament.game}</span>
-											<span className="text-white text-sm sm:text-base">SANA: {tournament.date} | {tournament.time}</span>
+											<span className="text-[#FF9600] font-medium text-sm sm:text-base">{getGameText()} {tournament.game}</span>
+											<span className="text-white text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
 										</div>
 										<h3 className="text-white font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
 										<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-											<span className="text-white text-base sm:text-lg">SOVRIN: ${tournament.prize}</span>
-											<span className="text-[#FF9600] font-medium text-sm sm:text-base">JAMOALAR: {tournament.teamSize}</span>
+											<span className="text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
+											<span className="text-[#FF9600] font-medium text-sm sm:text-base">{getTeamsText()} {tournament.teamSize}</span>
 										</div>
 									</div>
 								</motion.div>
@@ -483,7 +626,7 @@ const Main = () => {
 							}}
 						>
 							<span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-								BARCHASI
+								{getAllText()}
 							</span>
 						</Link>
 					</div>
@@ -527,12 +670,12 @@ const Main = () => {
 								className="h-[5px] bg-[#FF9600] hidden md:block"
 							></motion.div>
 							<motion.h2 
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.3, delay: 1.2 }}
-								className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic whitespace-nowrap"
+								initial={{ x: -50, opacity: 0 }}
+								animate={{ x: 0, opacity: 1 }}
+								transition={{ duration: 0.5, delay: 0.4 }}
+								className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 							>
-								TOP JAMOALAR
+								{getTopTeamsText()}
 							</motion.h2>
 							<motion.div 
 								initial={{ width: 0 }}
@@ -590,19 +733,19 @@ const Main = () => {
 										<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white border-b border-[#FF9600] pb-1">{team.name}</h3>
 										<div className="flex flex-col gap-1">
 											<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-												<span className="text-sm sm:text-base text-gray-400">G'alaba:</span>
+												<span className="text-sm sm:text-base text-gray-400">{getWinsText()}</span>
 												<span className="text-sm sm:text-base text-white">{team.stats.wins}</span>
 											</div>
 											<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-												<span className="text-sm sm:text-base text-gray-400">Mag'lubiyat:</span>
+												<span className="text-sm sm:text-base text-gray-400">{getLossesText()}</span>
 												<span className="text-sm sm:text-base text-white">{team.stats.matches}</span>
 											</div>
 											<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-												<span className="text-sm sm:text-base text-gray-400">Jami o'ldirishlar:</span>
+												<span className="text-sm sm:text-base text-gray-400">{getTotalKillsText()}</span>
 												<span className="text-sm sm:text-base text-white">{team.stats.totalGames}</span>
 											</div>
 											<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-												<span className="text-sm sm:text-base text-gray-400">Jami o'yin:</span>
+												<span className="text-sm sm:text-base text-gray-400">{getTotalGamesText()}</span>
 												<span className="text-sm sm:text-base text-white">{team.stats.totalWins}</span>
 											</div>
 										</div>
