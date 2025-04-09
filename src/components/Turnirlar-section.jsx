@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
+import jamoa1 from '../assets/jamoa1.png'
+import jamoa2 from '../assets/jamoa2.png'
+import jamoa3 from '../assets/jamoa3.png'
 import orqaFon from '../assets/orqafon1.png'
 import turnirRasm from '../assets/turnir.png'
 
@@ -81,7 +84,7 @@ const Turnirlar = props => {
 			}}
 		>
 			{/* Turnirlar chizigi */}
-			<section className='flex justify-center items-center px-2'>
+			<section className='container w-full mx-auto flex justify-center items-center px-2'>
 				<div className='container mx-auto flex flex-col items-center h-full mt-20'>
 					<div className='text-white w-full'>
 						{/* TURNIRLAR - chap yuqori */}
@@ -163,7 +166,7 @@ const Turnirlar = props => {
 			</section>
 
 			{/* Turnirlar kartalari */}
-			<section className='section-2'>
+			<section className='section-2 container w-full mx-auto '>
 				<div className='container mx-auto px-4'>
 					{/* Tugmalar */}
 					<div className='flex justify-end gap-4 mb-4 mt-5'>
@@ -182,9 +185,9 @@ const Turnirlar = props => {
 					</div>
 
 					{/* Turnir kartalari */}
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-500'>
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-1000 ease-in-out'>
 						{isWrapping.map((item, index) => (
-							<div key={index} className='card'>
+							<div key={index} className='card transform transition-all duration-1000 ease-in-out hover:scale-105'>
 								<div className='max-w-sm rounded-xl overflow-hidden text-white p-4 mx-auto'>
 									<div className='w-full h-48 bg-gray-800 rounded-lg overflow-hidden'>
 										<img
@@ -227,7 +230,7 @@ const Turnirlar = props => {
 			</section>
 
 			{/* Barchasi tugmasi */}
-			<section className='w-full flex justify-center items-center mt-10 py-10'>
+			<section className='container w-full mx-auto  flex justify-center items-center mt-10 py-10'>
 				<div className='p-[2px] rounded-2xl border '>
 					<button className='px-6 py-2 text-3xl font-medium rounded-2xl text-white hover:scale-105 transition duration-300'>
 						BARCHASI
@@ -235,8 +238,8 @@ const Turnirlar = props => {
 				</div>
 			</section>
 
-						{/* Jamoalar chizigi */}
-			<section className='flex justify-center items-center px-4'>
+			{/* Jamoalar chizigi */}
+			<section className='container w-full mx-auto flex justify-center items-center px-4'>
 				<div className='container mx-auto flex flex-col items-center h-full mt-20 w-full'>
 					<div className='text-white w-full'>
 						{/* CHIZIQLAR VA SARLAVHA */}
@@ -299,6 +302,111 @@ const Turnirlar = props => {
 										</motion.button>
 									)
 								)}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section className='container w-full mx-auto py-8 px-4 min-h-screen flex justify-around gap-10 flex-wrap'>
+				{/* jamoa 1 */}
+				<div className='border rounded-xl p-8 text-white shadow-lg flex w-[417px] h-[207px]'>
+					{/* Rasm (chap) */}
+					<div className='w-1/2 flex justify-center items-center'>
+						<img
+							src={jamoa1}
+							alt='Team Logo'
+							className='w-40 h-40 object-contain'
+						/>
+					</div>
+
+					{/* Statistika (o‘ng) */}
+					<div className='w-1/2 flex flex-col justify-center pl-2 text-sm'>
+						<h2 className='text-lg font-semibold mb-2'>Natus Vinserе</h2>
+						<div className='space-y-1'>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>G‘alaba:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Mag‘lubiyat:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Jami o‘ldirishlar:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between'>
+								<span>Jami o‘yin:</span>
+								<span>25</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* jamoa 2 */}
+				<div className='border rounded-xl p-8 text-white shadow-lg flex w-[417px] h-[207px]'>
+					{/* Rasm (chap) */}
+					<div className='w-1/2 flex justify-center items-center'>
+						<img
+							src={jamoa2}
+							alt='Team Logo'
+							className='w-40 h-40 object-contain'
+						/>
+					</div>
+
+					{/* Statistika (o‘ng) */}
+					<div className='w-1/2 flex flex-col justify-center pl-2 text-sm'>
+						<h2 className='text-lg font-semibold mb-2'>Natus Vinserе</h2>
+						<div className='space-y-1'>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>G‘alaba:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Mag‘lubiyat:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Jami o‘ldirishlar:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between'>
+								<span>Jami o‘yin:</span>
+								<span>25</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* jamoa 3 */}
+				<div className='border rounded-xl p-8 text-white shadow-lg flex w-[417px] h-[207px]'>
+					{/* Rasm (chap) */}
+					<div className='w-1/2 flex justify-center items-center'>
+						<img
+							src={jamoa3}
+							alt='Team Logo'
+							className='w-40 h-40 object-contain'
+						/>
+					</div>
+
+					{/* Statistika (o‘ng) */}
+					<div className='w-1/2 flex flex-col justify-center pl-2 text-sm'>
+						<h2 className='text-lg font-semibold mb-2'>Natus Vinserе</h2>
+						<div className='space-y-1'>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>G‘alaba:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Mag‘lubiyat:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between border-b border-gray-700 pb-1'>
+								<span>Jami o‘ldirishlar:</span>
+								<span>25</span>
+							</div>
+							<div className='flex justify-between'>
+								<span>Jami o‘yin:</span>
+								<span>25</span>
 							</div>
 						</div>
 					</div>
