@@ -1255,7 +1255,6 @@ const Main = () => {
 					</div>
 				</div>
 			</main>
-			<Footer />
 		</div>
 	)
 }
