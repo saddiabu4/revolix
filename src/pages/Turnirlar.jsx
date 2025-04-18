@@ -864,7 +864,6 @@ const Turnirlar = () => {
 					</div>
 				</div>
 			</main>
-			<Footer />
 		</div>
 	)
 }
