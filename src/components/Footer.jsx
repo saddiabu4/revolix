@@ -4,10 +4,10 @@ import { FaInstagram, FaTelegram, FaYoutube } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import footerBg from '../assets/footer.png'
 import footerLogo from '../assets/Logo.png'
+import Reklama from '../assets/reklama-baner.png'
 import Reklama1 from '../assets/reklama1.png'
 import Reklama2 from '../assets/reklama2.png'
 import Reklama3 from '../assets/reklama3.png'
-import Reklama from '../assets/reklama-baner.png'
 import { useLanguage } from '../context/LanguageContext'
 
 const Footer = () => {
@@ -33,12 +33,12 @@ const Footer = () => {
         backgroundImage: `url(${footerBg})`
       }}
     >
-      <div className='absolute top-[-30px] sm:top-[-50px] left-0 w-full h-[120px] sm:h-[120px] bg-[#120B00]'>
-        <img src={Reklama} alt="" className='w-full h-full object-cover' />
+      <div className="absolute top-[-100px] left-0 flex justify-center items-center w-full h-50">
+        <img src={Reklama} alt="" className='w-[1220px] h-full object-cover' />
       </div>
       
       {/* Marquee section */}
-      <div className="relative border-b border-white/10 py-20">
+      <div className="relative border-b border-white/10 py-30">
         <Marquee
           gradient={false}
           speed={50}
@@ -65,7 +65,7 @@ const Footer = () => {
             {/* Logo and Social Links */}
             <div className="md:col-span-1">
               <div className="flex flex-col gap-4 sm:gap-6">
-                <Link to={`/${language}`} className="inline-block">
+                <Link to="/" className="inline-block">
                   <img src={footerLogo} alt="Revolix" className="h-8 sm:h-12" />
                   <p className="text-white text-xs sm:text-sm mt-2">{getFooterText()}</p>
                 </Link>
@@ -98,7 +98,8 @@ const Footer = () => {
               <div className="flex flex-col gap-3 sm:gap-4">
                 <h3 className="text-white font-bold text-base sm:text-lg uppercase">{t('home')}</h3>
                 <div className="flex flex-col gap-1 sm:gap-2">
-                  <Link to={`/${language}/about`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">BIZ HAQIMIZDA</Link>
+                  <Link to="/" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('home')}</Link>
+                  <Link to={`/${language}/about`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('aboutUs')}</Link>
                 </div>
               </div>
 
@@ -106,13 +107,13 @@ const Footer = () => {
               <div className="flex flex-col gap-3 sm:gap-4">
                 <h3 className="text-white font-bold text-base sm:text-lg uppercase">{t('tournaments')}</h3>
                 <div className="flex flex-col gap-1 sm:gap-2">
-                  <Link to={`/${language}/games/pubgm`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('pubg')}</Link>
-                  <Link to={`/${language}/games/dota2`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('dota2')}</Link>
-                  <Link to={`/${language}/games/cs2`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('cs2')}</Link>
-                  <Link to={`/${language}/games/mlbb`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('mlbb')}</Link>
-                  <Link to={`/${language}/games/dota1`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('dota1')}</Link>
-                  <Link to={`/${language}/games/valorant`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('valorant')}</Link>
-                  <Link to={`/${language}/games/freefire`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('freeFire')}</Link>
+                  <Link to={`/${language}/tournaments/pubgm`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('pubg')}</Link>
+                  <Link to={`/${language}/tournaments/dota2`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('dota2')}</Link>
+                  <Link to={`/${language}/tournaments/cs2`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('cs2')}</Link>
+                  <Link to={`/${language}/tournaments/mlbb`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('mlbb')}</Link>
+                  <Link to={`/${language}/tournaments/dota1`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('dota1')}</Link>
+                  <Link to={`/${language}/tournaments/valorant`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('valorant')}</Link>
+                  <Link to={`/${language}/tournaments/freefire`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('freeFire')}</Link>
                 </div>
               </div>
 
@@ -122,7 +123,7 @@ const Footer = () => {
                 <div className="flex flex-col gap-1 sm:gap-2">
                   <Link to={`/${language}/articles/tips`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('tips')}</Link>
                   <Link to={`/${language}/articles/interviews`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('interviews')}</Link>
-                  <Link to={`/${language}/articles/tournament-rules`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('tournamentReviews')}</Link>
+                  <Link to={`/${language}/articles/tournament-reviews`} className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">{t('tournamentReviews')}</Link>
                 </div>
               </div>
 

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const LanguageSelect = ({ onChange, value }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef(null)
+	const location = useLocation()
+	const navigate = useNavigate()
 
 	const languages = [
 		{ code: 'uz', name: 'O\'zbek', flag: '🇺🇿' },
@@ -22,9 +25,23 @@ const LanguageSelect = ({ onChange, value }) => {
 	}, [])
 
 	const handleSelect = (langCode) => {
-		onChange(langCode)
-		setIsOpen(false)
-	}
+		const pathParts = location.pathname.split('/').filter(Boolean);
+	
+		if (!languages.find(lang => lang.code === pathParts[0])) {
+			pathParts.unshift(langCode);
+		} else {
+			pathParts[0] = langCode;
+		}
+	
+		const newPath = '/' + pathParts.join('/');
+	
+		// Hatto agar path o‘zgarmagan bo‘lsa ham, majburan navigate qilamiz
+		navigate(newPath, { replace: true });
+		onChange(langCode);
+		setIsOpen(false);
+	};
+	
+	
 
 	const selectedLanguage = languages.find(lang => lang.code === value) || languages[0]
 

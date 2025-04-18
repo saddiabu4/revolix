@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoTitle from '../assets/logo-title.png'
@@ -11,6 +12,8 @@ const Navbar = () => {
 	const { t, changeLanguage, language } = useLanguage()
 	const location = useLocation()
 	const navigate = useNavigate()
+	const [isOpen, setIsOpen] = useState(false)
+	const [activeSection, setActiveSection] = useState('')
 
 	// Close dropdown when clicking outside
 	useEffect(() => {
@@ -24,84 +27,116 @@ const Navbar = () => {
 		return () => document.removeEventListener('mousedown', handleClickOutside)
 	}, [activeDropdown])
 
-	const handleLanguageChange = (lang) => {
-		changeLanguage(lang)
-		
-		// Get the current path without the language prefix
-		const pathSegments = location.pathname.split('/').filter(Boolean)
-		const hasLanguagePrefix = ['uz', 'ru', 'en'].includes(pathSegments[0])
-		
-		let newPath
-		if (hasLanguagePrefix) {
-			// Replace the language prefix
-			newPath = `/${lang}/${pathSegments.slice(1).join('/')}`
-		} else if (location.pathname === '/' || location.pathname === '') {
-			// If we're at the root, just add the language prefix
-			newPath = `/${lang}`
+	useEffect(() => {
+		// Set active section based on current path
+		const path = location.pathname
+		if (path.includes('/turnirlar') || path.includes('/tournaments')) {
+			setActiveSection('turnirlar')
+		} else if (path.includes('/profile')) {
+			setActiveSection('profile')
 		} else {
-			// Add the language prefix to the current path
-			newPath = `/${lang}${location.pathname}`
+			setActiveSection('')
 		}
-		
-		// Navigate to the new path
+	}, [location])
+
+	const handleLanguageChange = (newLang) => {
+		changeLanguage(newLang)
+		const currentPath = window.location.pathname
+		const newPath = currentPath.replace(`/${language}`, `/${newLang}`)
 		navigate(newPath)
 	}
 
 	// Memoize navLinks to prevent unnecessary re-renders
 	const navLinks = useMemo(() => [
-		{ 
-			name: t('home'), 
-			path: `/${language}`, 
+		{
+			name: t('home'),
+			path: `/${language}`,
 			key: 'home',
 			dropdownItems: []
 		},
-		{ 
-			name: t('tournaments'), 
-			path: `/${language}/tournaments`, 
+		{
+			name: t('tournaments'),
+			path: `/${language}/turnirlar`,
 			key: 'tournaments',
 			dropdownItems: [
-				{ name: 'PUBGM', path: `/${language}/tournaments/pubgm` },
-				{ name: 'DOTA 2', path: `/${language}/tournaments/dota2` },
-				{ name: 'CS 2', path: `/${language}/tournaments/cs2` },
-				{ name: 'MLBB', path: `/${language}/tournaments/mlbb` },
-				{ name: 'DOTA 1', path: `/${language}/tournaments/dota1` },
-				{ name: 'VALORANT', path: `/${language}/tournaments/valorant` },
-				{ name: 'FREE FIRE', path: `/${language}/tournaments/freefire` }
+				{ name: 'PUBGM', path: `/${language}/tournaments/pubgm`, component: 'PubgmTournaments' },
+				{ name: 'DOTA 2', path: `/${language}/tournaments/dota2`, component: 'Dota2Tournaments' },
+				{ name: 'CS 2', path: `/${language}/tournaments/cs2`, component: 'Cs2Tournaments' },
+				{ name: 'MLBB', path: `/${language}/tournaments/mlbb`, component: 'MlbbTournaments' },
+				{ name: 'DOTA 1', path: `/${language}/tournaments/dota1`, component: 'Dota1Tournaments' },
+				{ name: 'VALORANT', path: `/${language}/tournaments/valorant`, component: 'ValorantTournaments' },
+				{ name: 'FREE FIRE', path: `/${language}/tournaments/freefire`, component: 'FreeFireTournaments' }
 			]
 		},
-		{ 
-			name: t('articles'), 
-			path: `/${language}/articles`, 
+		{
+			name: t('articles'),
+			path: `/${language}/articles`,
 			key: 'articles',
 			dropdownItems: [
-				{ name: t('tips'), path: `/${language}/articles/tips` },
-				{ name: t('interviews'), path: `/${language}/articles/interviews` },
-				{ name: t('tournamentReviews'), path: `/${language}/articles/tournament-reviews` }
+				{ name: t('tips'), path: `/${language}/articles/tips`, component: 'Tips' },
+				{ name: t('interviews'), path: `/${language}/articles/interviews`, component: 'Interviews' },
+				{ name: t('tournamentReviews'), path: `/${language}/articles/tournament-reviews`, component: 'TournamentReviews' }
 			]
 		},
-		{ 
-			name: t('news'), 
-			path: `/${language}/news`, 
+		{
+			name: t('news'),
+			path: `/${language}/news`,
 			key: 'news',
 			dropdownItems: [
-				{ name: language === 'uz' ? 'SAYTDAGI O\'ZGARISHLARI' : (language === 'ru' ? 'ИЗМЕНЕНИЯ НА САЙТЕ' : (language === 'en' ? 'SITE UPDATES' : t('siteUpdates'))), path: `/${language}/news/site-updates` },
-				{ name: t('esportsNews'), path: `/${language}/news/esports` },
-				{ name: t('gameUpdates'), path: `/${language}/news/game-updates` }
+				{ name: language === 'uz' ? 'SAYTDAGI O\'ZGARISHLARI' : (language === 'ru' ? 'ИЗМЕНЕНИЯ НА САЙТЕ' : (language === 'en' ? 'SITE UPDATES' : t('siteUpdates'))), path: `/${language}/news/site-updates`, component: 'SiteUpdates' },
+				{ name: t('esportsNews'), path: `/${language}/news/esports`, component: 'EsportsNews' },
+				{ name: t('gameUpdates'), path: `/${language}/news/game-updates`, component: 'GameUpdates' }
 			]
 		},
-		{ 
-			name: t('rating'), 
-			path: `/${language}/rating`, 
+		{
+			name: t('rating'),
+			path: `/${language}/rating`,
 			key: 'rating',
 			dropdownItems: [
-				{ name: t('topTeams'), path: `/${language}/rating/teams` },
-				{ name: t('topPlayers'), path: `/${language}/rating/players` }
+				{ name: t('topTeams'), path: `/${language}/rating/teams`, component: 'TopTeams' },
+				{ name: t('topPlayers'), path: `/${language}/rating/players`, component: 'TopPlayers' }
 			]
 		}
 	], [t, language])
 
 	const toggleDropdown = (key) => {
 		setActiveDropdown(activeDropdown === key ? null : key)
+	}
+
+	const getTournamentsText = () => {
+		switch (language) {
+			case 'uz':
+				return "TURNIRLAR"
+			case 'ru':
+				return "ТУРНИРЫ"
+			case 'en':
+				return "TOURNAMENTS"
+			default:
+				return "TURNIRLAR"
+		}
+	}
+
+	const getProfileText = () => {
+		switch (language) {
+			case 'uz':
+				return "PROFIL"
+			case 'ru':
+				return "ПРОФИЛЬ"
+			case 'en':
+				return "PROFILE"
+			default:
+				return "PROFIL"
+		}
+	}
+
+	const handleTournamentsClick = () => {
+		navigate(`/${language}/turnirlar`)
+		setIsOpen(false)
+	}
+
+	const handleProfileClick = () => {
+		navigate(`/${language}/profile`)
+		setIsOpen(false)
 	}
 
 	return (
@@ -120,21 +155,28 @@ const Navbar = () => {
 						<ul className="flex gap-6">
 							{navLinks.map((link) => (
 								<li key={link.key} className="relative group dropdown-container">
-									<Link
-										to={link.path}
-										className="text-white text-2xl group-hover:text-[#ff9600] transition-colors duration-200"
-										onMouseEnter={() => setActiveDropdown(link.key)}
-										onMouseLeave={() => setActiveDropdown(null)}
-									>
-										{link.name}
-									</Link>
+									{link.dropdownItems.length > 0 ? (
+										<div
+											className="text-white text-2xl group-hover:text-[#ff9600] transition-colors duration-200 cursor-pointer"
+											onMouseEnter={() => setActiveDropdown(link.key)}
+											onMouseLeave={() => setActiveDropdown(null)}
+										>
+											{link.name}
+										</div>
+									) : (
+										<Link
+											to={link.path}
+											className="text-white text-2xl group-hover:text-[#ff9600] transition-colors duration-200"
+										>
+											{link.name}
+										</Link>
+									)}
 									{link.dropdownItems.length > 0 && (
-										<ul 
-											className={`absolute left-0 mt-5 w-[301px] bg-[#0D0D0DC7] rounded-[18px] border-2 border-white shadow-lg z-50 transition-all duration-300 ${
-												activeDropdown === link.key 
-													? 'opacity-100 visible' 
-													: 'opacity-0 invisible'
-											} p-4 before:content-[''] before:absolute before:top-[-20px] before:left-0 before:w-full before:h-[20px]`}
+										<ul
+											className={`absolute left-0 mt-5 w-[301px] bg-[#0D0D0DC7] rounded-[18px] border-2 border-white shadow-lg z-50 transition-all duration-300 ${activeDropdown === link.key
+												? 'opacity-100 visible'
+												: 'opacity-0 invisible'
+												} p-4 before:content-[''] before:absolute before:top-[-20px] before:left-0 before:w-full before:h-[20px]`}
 											onMouseEnter={() => setActiveDropdown(link.key)}
 											onMouseLeave={() => setActiveDropdown(null)}
 										>
@@ -163,12 +205,18 @@ const Navbar = () => {
 					{/* Right side buttons */}
 					<div className="hidden md:flex items-center space-x-4">
 						<LanguageSelect onChange={handleLanguageChange} value={language} />
-						<button className="bg-[#ff9600] text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-[#ff9600]/90 transition-colors duration-200">
+						<Link
+							to={`/${language}/signup`}
+							className="bg-[#ff9600] text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-[#ff9600]/90 transition-colors duration-200"
+						>
 							{t('createAccount')}
-						</button>
-						<button className="bg-gray-700 text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-gray-600 transition-colors duration-200">
+						</Link>
+						<Link
+							to={`/${language}/login`}
+							className="bg-gray-700 text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-gray-600 transition-colors duration-200"
+						>
 							{t('login')}
-						</button>
+						</Link>
 					</div>
 
 					{/* Mobile menu button */}
@@ -206,49 +254,30 @@ const Navbar = () => {
 			</div>
 
 			{/* Mobile menu */}
-			<div className={`md:hidden transition-all duration-300 ease-in-out ${
-				isMobileMenuOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-			} overflow-hidden`}>
+			<div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+				} overflow-hidden`}>
 				<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900/95 backdrop-blur-sm">
 					{navLinks.map((link) => (
 						<div key={link.key} className="dropdown-container">
 							{link.dropdownItems.length > 0 ? (
-								<button
-									onClick={() => toggleDropdown(link.key)}
-									className={`w-full text-left text-white hover:text-[#ff9600] block px-3 py-2 rounded-md text-2xl font-kanit font-normal transition-colors duration-200 flex items-center justify-between ${
-										activeDropdown === link.key ? 'text-[#ff9600]' : ''
-									}`}
+								<div
+									className="text-white text-2xl group-hover:text-[#ff9600] transition-colors duration-200 cursor-pointer"
+									onMouseEnter={() => setActiveDropdown(link.key)}
+									onMouseLeave={() => setActiveDropdown(null)}
 								>
 									{link.name}
-									<svg
-										className={`w-5 h-5 transition-transform duration-200 ${
-											activeDropdown === link.key ? 'rotate-180' : ''
-										}`}
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M19 9l-7 7-7-7"
-										/>
-									</svg>
-								</button>
+								</div>
 							) : (
 								<Link
 									to={link.path}
-									className="text-white hover:text-[#ff9600] block px-3 py-2 rounded-md text-2xl font-kanit font-normal transition-colors duration-200"
-									onClick={() => setIsMobileMenuOpen(false)}
+									className="text-white text-2xl group-hover:text-[#ff9600] transition-colors duration-200"
 								>
 									{link.name}
 								</Link>
 							)}
 							{link.dropdownItems.length > 0 && (
-								<div className={`pl-4 space-y-1 transition-all duration-300 ${
-									activeDropdown === link.key ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-								} overflow-hidden`}>
+								<div className={`pl-4 space-y-1 transition-all duration-300 ${activeDropdown === link.key ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+									} overflow-hidden`}>
 									{link.dropdownItems.map((item, index) => (
 										<Link
 											key={index}
@@ -272,15 +301,56 @@ const Navbar = () => {
 						</div>
 					))}
 					<div className="pt-4 space-y-2">
-						<button className="w-full bg-[#ff9600] text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-[#ff9600]/90 transition-colors duration-200">
+						<Link
+							to={`/${language}/signup`}
+							className="w-full bg-[#ff9600] text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-[#ff9600]/90 transition-colors duration-200 block text-center"
+							onClick={() => {
+								setIsMobileMenuOpen(false)
+								setActiveDropdown(null)
+							}}
+						>
 							{t('createAccount')}
-						</button>
-						<button className="w-full bg-gray-700 text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-gray-600 transition-colors duration-200">
+						</Link>
+						<Link
+							to={`/${language}/login`}
+							className="w-full bg-gray-700 text-white px-4 py-2 rounded-md text-base font-kanit font-normal hover:bg-gray-600 transition-colors duration-200 block text-center"
+							onClick={() => {
+								setIsMobileMenuOpen(false)
+								setActiveDropdown(null)
+							}}
+						>
 							{t('login')}
-						</button>
+						</Link>
 					</div>
 				</div>
 			</div>
+
+			{/* Mobile Menu */}
+			{isOpen && (
+				<motion.div
+					initial={{ opacity: 0, y: -20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="md:hidden bg-[#0D0D0D] border-t border-gray-800"
+				>
+					<div className="px-4 py-3 space-y-3">
+						<button
+							onClick={handleTournamentsClick}
+							className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${activeSection === 'turnirlar' ? 'text-[#FF9600]' : ''
+								}`}
+						>
+							{getTournamentsText()}
+						</button>
+						<button
+							onClick={handleProfileClick}
+							className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${activeSection === 'profile' ? 'text-[#FF9600]' : ''
+								}`}
+						>
+							{getProfileText()}
+						</button>
+					</div>
+				</motion.div>
+			)}
 		</nav>
 	)
 }
