@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
+import uzLan from '../assets/uzLan.png'
+import ruLan from '../assets/ruLan.png'
+import enLan from '../assets/enLan.png'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const LanguageSelect = ({ onChange, value }) => {
@@ -8,9 +11,9 @@ const LanguageSelect = ({ onChange, value }) => {
 	const navigate = useNavigate()
 
 	const languages = [
-		{ code: 'uz', name: 'O\'zbek', flag: '🇺🇿' },
-		{ code: 'ru', name: 'Русский', flag: '🇷🇺' },
-		{ code: 'en', name: 'English', flag: '🇬🇧' },
+		{ code: 'uz', name: "O'zbek", flag: uzLan },
+		{ code: 'ru', name: 'Русский', flag: ruLan },
+		{ code: 'en', name: 'English', flag: enLan },
 	]
 
 	useEffect(() => {
@@ -19,29 +22,22 @@ const LanguageSelect = ({ onChange, value }) => {
 				setIsOpen(false)
 			}
 		}
-
 		document.addEventListener('mousedown', handleClickOutside)
 		return () => document.removeEventListener('mousedown', handleClickOutside)
 	}, [])
 
 	const handleSelect = (langCode) => {
-		const pathParts = location.pathname.split('/').filter(Boolean);
-	
+		const pathParts = location.pathname.split('/').filter(Boolean)
 		if (!languages.find(lang => lang.code === pathParts[0])) {
-			pathParts.unshift(langCode);
+			pathParts.unshift(langCode)
 		} else {
-			pathParts[0] = langCode;
+			pathParts[0] = langCode
 		}
-	
-		const newPath = '/' + pathParts.join('/');
-	
-		// Hatto agar path o‘zgarmagan bo‘lsa ham, majburan navigate qilamiz
-		navigate(newPath, { replace: true });
-		onChange(langCode);
-		setIsOpen(false);
-	};
-	
-	
+		const newPath = '/' + pathParts.join('/')
+		navigate(newPath, { replace: true })
+		onChange(langCode)
+		setIsOpen(false)
+	}
 
 	const selectedLanguage = languages.find(lang => lang.code === value) || languages[0]
 
@@ -51,7 +47,7 @@ const LanguageSelect = ({ onChange, value }) => {
 				onClick={() => setIsOpen(!isOpen)}
 				className="flex items-center space-x-2 text-white hover:text-[#ff9600] transition-colors duration-200"
 			>
-				<span className="text-xl">{selectedLanguage.flag}</span>
+				<img src={selectedLanguage.flag} alt={selectedLanguage.name} className="w-5 h-5 rounded-sm" />
 				<span className="text-sm font-medium">{selectedLanguage.name}</span>
 			</button>
 
@@ -62,12 +58,10 @@ const LanguageSelect = ({ onChange, value }) => {
 							key={lang.code}
 							onClick={() => handleSelect(lang.code)}
 							className={`w-full text-left px-4 py-2 text-sm flex items-center space-x-2 ${
-								value === lang.code
-									? 'text-[#ff9600] bg-gray-800'
-									: 'text-white hover:bg-gray-800'
+								value === lang.code ? 'text-[#ff9600] bg-gray-800' : 'text-white hover:bg-gray-800'
 							}`}
 						>
-							<span className="text-xl">{lang.flag}</span>
+							<img src={lang.flag} alt={lang.name} className="w-5 h-5 rounded-sm" />
 							<span>{lang.name}</span>
 						</button>
 					))}
