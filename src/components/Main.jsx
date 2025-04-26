@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { FaGamepad, FaMedal, FaStar, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
+import { FaDeaf, FaGamepad, FaMedal, FaStar, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
+import { GiPirateFlag } from "react-icons/gi"
 import { Link } from 'react-router-dom'
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick-theme.css"
+import "slick-carousel/slick/slick.css"
 import jamoa1 from '../assets/jamoa1.png'
 import jamoa2 from '../assets/jamoa2.png'
 import jamoa3 from '../assets/jamoa3.png'
@@ -14,8 +18,8 @@ import Reklama from '../assets/reklama-baner.png'
 import statisticImage from '../assets/statistic.png'
 import turnirImage from '../assets/turnir.png'
 import { useLanguage } from '../context/LanguageContext'
-import Footer from './Footer'
 import Navbar from './Navbar'
+import { FaEarDeaf } from 'react-icons/fa6'
 
 const Main = () => {
 	const { language, t } = useLanguage()
@@ -190,7 +194,7 @@ const Main = () => {
 			name: "ZywOo",
 			flag: "🇫🇷",
 			rating: 50,
-			team: "Team Vitality",
+			team: "Team Vitality salokm",
 			matches: 150,
 			defeats: 50,
 			wins: 100,
@@ -534,6 +538,35 @@ const Main = () => {
 		}
 	}
 
+	const settings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		fade: false,
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	}
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<Navbar />
@@ -662,7 +695,10 @@ const Main = () => {
 									transition={{ duration: 0.5, delay: 0.4 }}
 									className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 								>
+									<h1 className='text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-black italic '>
+
 									{getTournamentsText()}
+									</h1>
 								</motion.h2>
 								<motion.div
 									initial={{ width: 0 }}
@@ -721,45 +757,35 @@ const Main = () => {
 
 						{/* Tournament Cards */}
 						<div className="relative mb-16">
-							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 overflow-hidden">
-								{tournaments.slice(currentSlide, currentSlide + 3).map((tournament, index) => (
-									<motion.div
-										key={tournament.id}
-										className="rounded-2xl overflow-hidden"
-										initial={{ x: window.innerWidth > 768 ? 300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
-										animate={{ x: 0, opacity: 1 }}
-										exit={{ x: window.innerWidth > 768 ? -300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
-										transition={{ duration: 0.5 }}
-									>
-										<img
-											src={tournament.image}
-											alt={tournament.title}
-											className="w-full h-[200px] sm:h-[250px] object-cover border-1 border-white"
-										/>
-										<div className="p-4 sm:p-6">
-											<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
-												<span className="text-white font-bold text-sm sm:text-base">{getGameText()} {tournament.game}</span>
-												<span className="text-white font-bold text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
-											</div>
-											<h3 className="text-[#FF9600] font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
-											<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-												<span className="font-bold text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
-											</div>
+							<div className="slider-container">
+								<Slider {...settings}>
+									{tournaments.map((tournament) => (
+										<div key={tournament.id} className="px-2">
+											<motion.div
+												className="rounded-2xl overflow-hidden"
+												initial={{ opacity: 0, y: 20 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ duration: 0.5 }}
+											>
+												<img
+													src={tournament.image}
+													alt={tournament.title}
+													className="w-full h-48 sm:h-60 object-cover border border-white"
+												/>
+												<div className="p-4 sm:p-6">
+													<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
+														<span className="text-white font-bold text-sm sm:text-base">{getGameText()} {tournament.game}</span>
+														<span className="text-white font-bold text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
+													</div>
+													<h3 className="text-[#FF9600] font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
+													<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+														<span className="font-bold text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
+													</div>
+												</div>
+											</motion.div>
 										</div>
-									</motion.div>
-								))}
-							</div>
-
-							{/* Navigation Dots */}
-							<div className="flex justify-center gap-2 mt-6">
-								{Array.from({ length: tournaments.length - 2 }).map((_, index) => (
-									<button
-										key={index}
-										className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-[#FF9600] w-4 sm:w-6' : 'bg-white/30'
-											}`}
-										onClick={() => setCurrentSlide(index)}
-									/>
-								))}
+									))}
+								</Slider>
 							</div>
 						</div>
 
@@ -826,7 +852,10 @@ const Main = () => {
 									transition={{ duration: 0.5, delay: 0.4 }}
 									className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 								>
-									{getTopTeamsText()}
+									<h1 className='text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-black italic'>
+
+										{getTopTeamsText()}
+									</h1>
 								</motion.h2>
 								<motion.div
 									initial={{ width: 0 }}
@@ -860,63 +889,57 @@ const Main = () => {
 						</div>
 
 						{/* Teams Grid */}
-						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
-							{topTeams.slice(currentTeamSlide, currentTeamSlide + 3).map((team) => (
-								<motion.div
-									key={team.id}
-									className="w-full max-w-[437px] h-[257px] border-1 border-white rounded-2xl p-4 sm:p-6 mx-auto"
-									initial={{ x: window.innerWidth > 768 ? -300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
-									animate={{ x: 0, opacity: 1 }}
-									exit={{ x: window.innerWidth > 768 ? 300 : 0, opacity: window.innerWidth > 768 ? 0 : 1 }}
-									transition={{ duration: 0.5 }}
-								>
-									<div className="flex items-center gap-4 sm:gap-6 h-full">
-										{/* Team Image */}
-										<div className="w-[120px] sm:w-[150px] md:w-[175px] h-[120px] sm:h-[150px] md:h-[175px] rounded-xl overflow-hidden bg-[#0D0D0D] flex items-center justify-center">
-											<img
-												src={team.logo}
-												alt={team.name}
-												className="w-full h-full object-cover"
-											/>
+						<div className="relative mb-16">
+							<div className="slider-container">
+								<Slider {...settings}>
+									{topTeams.map((team) => (
+										<div key={team.id} className="px-2">
+											<motion.div
+												className="w-full max-w-[437px] h-[257px] border-1 border-white rounded-2xl p-4 sm:p-6 mx-auto"
+												initial={{ opacity: 0, y: 20 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ duration: 0.5 }}
+											>
+												<div className="flex items-center gap-4 sm:gap-6 h-full">
+													{/* Team Image */}
+													<div className="w-[120px] sm:w-[150px] md:w-[175px] h-[120px] sm:h-[150px] md:h-[175px] rounded-xl overflow-hidden bg-[#0D0D0D] flex items-center justify-center">
+														<img
+															src={team.logo}
+															alt={team.name}
+															className="w-full h-full object-cover"
+														/>
+													</div>
+													{/* Team Info */}
+													<div className="flex flex-col gap-2">
+														<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white border-b border-[#FF9600] pb-1">{team.name}</h3>
+														<div className="flex flex-col gap-1">
+															<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
+																<span className="text-sm sm:text-base text-gray-400">{getWinsText()}</span>
+																<span className="text-sm sm:text-base text-white">{team.stats.wins}</span>
+															</div>
+															<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
+																<span className="text-sm sm:text-base text-gray-400">{getLossesText()}</span>
+																<span className="text-sm sm:text-base text-white">{team.stats.matches}</span>
+															</div>
+															<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
+																<span className="text-sm sm:text-base text-gray-400">{getTotalKillsText()}</span>
+																<span className="text-sm sm:text-base text-white">{team.stats.totalGames}</span>
+															</div>
+															<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
+																<span className="text-sm sm:text-base text-gray-400">{getTotalGamesText()}</span>
+																<span className="text-sm sm:text-base text-white">{team.stats.totalWins}</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</motion.div>
 										</div>
-										{/* Team Info */}
-										<div className="flex flex-col gap-2">
-											<h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white border-b border-[#FF9600] pb-1">{team.name}</h3>
-											<div className="flex flex-col gap-1">
-												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-													<span className="text-sm sm:text-base text-gray-400">{getWinsText()}</span>
-													<span className="text-sm sm:text-base text-white">{team.stats.wins}</span>
-												</div>
-												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-													<span className="text-sm sm:text-base text-gray-400">{getLossesText()}</span>
-													<span className="text-sm sm:text-base text-white">{team.stats.matches}</span>
-												</div>
-												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-													<span className="text-sm sm:text-base text-gray-400">{getTotalKillsText()}</span>
-													<span className="text-sm sm:text-base text-white">{team.stats.totalGames}</span>
-												</div>
-												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-1">
-													<span className="text-sm sm:text-base text-gray-400">{getTotalGamesText()}</span>
-													<span className="text-sm sm:text-base text-white">{team.stats.totalWins}</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</motion.div>
-							))}
+									))}
+								</Slider>
+							</div>
 						</div>
 
-						{/* Team Navigation Dots */}
-						<div className="flex justify-center gap-2 mb-8">
-							{Array.from({ length: topTeams.length - 2 }).map((_, index) => (
-								<button
-									key={index}
-									className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all duration-300 ${currentTeamSlide === index ? 'bg-[#FF9600] w-4 sm:w-6' : 'bg-white/30'
-										}`}
-									onClick={() => setCurrentTeamSlide(index)}
-								/>
-							))}
-						</div>
+
 
 					</div>
 				</div>
@@ -951,7 +974,10 @@ const Main = () => {
 									transition={{ duration: 0.5, delay: 0.4 }}
 									className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 								>
-									{getTopPlayersText()}
+									<h1 className='text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-black italic'>
+										{getTopPlayersText()}
+
+									</h1>
 								</motion.h2>
 								<motion.div
 									initial={{ width: 0 }}
@@ -1009,103 +1035,102 @@ const Main = () => {
 						</div>
 
 						{/* Players Grid */}
-						<div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-8 mb-8 justify-items-center">
-							{players.slice(currentPlayerSlide, currentPlayerSlide + 3).map((player) => (
-								<div key={player.id} className="rounded-2xl p-4 sm:p-6 w-full sm:w-[486px] min-h-[500px]">
-									<div className="flex flex-col md:flex-row-reverse md:justify-center h-full">
-										{/* Player Image */}
-										<div className="relative w-[160px] sm:w-[200px] md:w-full h-[200px] sm:h-[250px] md:h-full rounded-lg overflow-hidden mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0">
-											<img
-												src={player.image}
-												alt={player.name}
-												className="w-full h-full object-cover object-center"
-											/>
-											<div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent"></div>
+						<div className="relative mb-16">
+							<div className="slider-container">
+								<Slider {...settings}>
+									{players.map((player) => (
+										<div key={player.id} className="px-2">
+											<motion.div
+												className="rounded-2xl p-4 sm:p-6 w-full sm:w-[486px] min-h-[500px] "
+												initial={{ opacity: 0, y: 20 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ duration: 0.5 }}
+											>
+												<div className="flex flex-col md:flex-row-reverse md:justify-center h-full relative">
+													{/* Player Image */}
+													<div className="relative w-[160px] sm:w-[200px] md:w-full h-[200px] sm:h-[250px] md:h-full rounded-lg overflow-hidden mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0 absolute left-0 max-sm:top-0 max-sm:left-0">
+														<img
+															src={player.image}
+															alt={player.name}
+															className="w-80 h-100 object-cover object-center ml-25 mt-10 max-md:mt-0 max-md:ml-0 max-sm:w-full max-sm:h-full"
+														/>
+														<div className="absolute inset-0 via-transparent to-transparent"></div>
+													</div>
+
+													{/* Stats */}
+													<div className="flex flex-col gap-3 w-full absolute left-0 max-md:top-70 ">
+														{/* Player Name and Flag */}
+														<div className="flex items-center gap-2">
+															<span className="text-lg sm:text-xl md:text-2xl">{player.flag}</span>
+															<span className="text-white font-bold text-lg sm:text-xl md:text-2xl">{player.name}</span>
+														</div>
+
+														<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-3 sm:gap-4">
+															{/* Rating */}
+															<div className="flex items-center gap-2 sm:gap-3">
+																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
+																	<FaStar className="text-white w-5 h-5" />
+																</div>
+																<div>
+																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getRatingText()}</span>
+																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.rating}</p>
+																</div>
+															</div>
+
+															{/* Team */}
+															<div className="flex items-center gap-2 sm:gap-3">
+																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
+																	<FaUsers className="text-white w-5 h-5" />
+																</div>
+																<div>
+																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getTeamText()}</span>
+																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-40 max-sm:w-20">{player.team}</p>
+																</div>
+															</div>
+
+															{/* Matches */}
+															<div className="flex items-center gap-2 sm:gap-3">
+																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
+																	<FaGamepad className="text-white w-5 h-5" />
+																</div>
+																<div>
+																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getMatchesText()}</span>
+																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.matches}</p>
+																</div>
+															</div>
+
+															{/* Wins */}
+															<div className="flex items-center gap-2 sm:gap-3">
+																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
+																	<FaTrophy className="text-white w-5 h-5" />
+																</div>
+																<div>
+																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getWinsText()}</span>
+																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.wins}</p>
+																</div>
+															</div>
+
+															{/* Defeats */}
+															<div className="flex items-center gap-2 sm:gap-3">
+																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
+																	<GiPirateFlag className="text-white w-5 h-5" />
+
+																</div>
+																<div>
+																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getDefeatsText()}</span>
+																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.defeats}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</motion.div>
 										</div>
-
-										{/* Stats */}
-										<div className="flex flex-col gap-3 sm:gap-4 md:mr-6">
-											{/* Player Name and Flag */}
-											<div className="flex items-center gap-2">
-												<span className="text-lg sm:text-xl md:text-2xl">{player.flag}</span>
-												<span className="text-white font-bold text-lg sm:text-xl md:text-2xl">{player.name}</span>
-											</div>
-
-											<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-3 sm:gap-4">
-												{/* Rating */}
-												<div className="flex items-center gap-2 sm:gap-3">
-													<div className="bg-[#FF9600] w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-lg flex items-center justify-center">
-														<FaStar className="text-white w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
-													</div>
-													<div>
-														<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getRatingText()}</span>
-														<p className="text-white font-bold text-sm sm:text-lg md:text-xl">{player.rating}</p>
-													</div>
-												</div>
-
-												{/* Team */}
-												<div className="flex items-center gap-2 sm:gap-3">
-													<div className="bg-[#FF9600] w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-lg flex items-center justify-center">
-														<FaUsers className="text-white w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
-													</div>
-													<div>
-														<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getTeamText()}</span>
-														<p className="text-white font-bold text-sm sm:text-lg md:text-xl">{player.team}</p>
-													</div>
-												</div>
-
-												{/* Matches */}
-												<div className="flex items-center gap-2 sm:gap-3">
-													<div className="bg-[#FF9600] w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-lg flex items-center justify-center">
-														<FaGamepad className="text-white w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
-													</div>
-													<div>
-														<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getMatchesText()}</span>
-														<p className="text-white font-bold text-sm sm:text-lg md:text-xl">{player.matches}</p>
-													</div>
-												</div>
-
-												{/* Wins */}
-												<div className="flex items-center gap-2 sm:gap-3">
-													<div className="bg-[#FF9600] w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-lg flex items-center justify-center">
-														<FaTrophy className="text-white w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
-													</div>
-													<div>
-														<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getWinsText()}</span>
-														<p className="text-white font-bold text-sm sm:text-lg md:text-xl">{player.wins}</p>
-													</div>
-												</div>
-
-												{/* Defeats */}
-												<div className="flex items-center gap-2 sm:gap-3">
-													<div className="bg-[#FF9600] w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-lg flex items-center justify-center">
-														<svg xmlns="http://www.w3.org/2000/svg" className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-															<path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
-														</svg>
-													</div>
-													<div>
-														<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getDefeatsText()}</span>
-														<p className="text-white font-bold text-sm sm:text-lg md:text-xl">{player.defeats}</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							))}
+									))}
+								</Slider>
+							</div>
 						</div>
 
-						{/* Player Navigation Dots */}
-						<div className="flex justify-center gap-2 mb-16">
-							{Array.from({ length: players.length - 2 }).map((_, index) => (
-								<button
-									key={index}
-									className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all duration-300 ${currentPlayerSlide === index ? 'bg-[#FF9600] w-4 sm:w-6' : 'bg-white/30'
-										}`}
-									onClick={() => setCurrentPlayerSlide(index)}
-								/>
-							))}
-						</div>
 
 						{/* News Header */}
 						<div className="flex flex-col mb-8">
@@ -1151,7 +1176,10 @@ const Main = () => {
 									transition={{ duration: 0.5, delay: 0.4 }}
 									className="text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold italic"
 								>
-									{getNewsText()}
+									<h1 className='text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-black italic'>
+										{getNewsText()}
+
+									</h1>
 								</motion.h2>
 								<motion.div
 									initial={{ width: 0 }}
