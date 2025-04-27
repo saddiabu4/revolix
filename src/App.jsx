@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Main from './components/Main'
+import TurnirDetails from './components/TurnirDetails'
 import { LanguageProvider } from './context/LanguageContext'
 
 // Sahifalar va turnirlar
@@ -74,6 +75,9 @@ const App = () => {
                         <Route path="rating/teams" element={<TopTeams />} />
                         <Route path="rating/players" element={<TopPlayers />} />
                     </Route>
+
+                    {/* TurnirDetails route */}
+                    <Route path="/:lang/turnir/:id" element={<TurnirDetails />} />
 
                     {/* Catch-all fallback */}
                     <Route path="*" element={<Navigate to={"/uz"} replace />} />

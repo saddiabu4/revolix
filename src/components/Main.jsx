@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { FaDeaf, FaGamepad, FaMedal, FaStar, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
+import { FaGamepad, FaMedal, FaStar, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
 import { GiPirateFlag } from "react-icons/gi"
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
@@ -19,7 +19,6 @@ import statisticImage from '../assets/statistic.png'
 import turnirImage from '../assets/turnir.png'
 import { useLanguage } from '../context/LanguageContext'
 import Navbar from './Navbar'
-import { FaEarDeaf } from 'react-icons/fa6'
 
 const Main = () => {
 	const { language } = useLanguage()
@@ -32,6 +31,18 @@ const Main = () => {
 
 	const [activeTournamentGame, setActiveTournamentGame] = useState('PUBGM')
 	const [activeTeamGame, setActiveTeamGame] = useState('PUBGM')
+
+	// Tournament carousel state
+	const [currentTournamentSlide, setCurrentTournamentSlide] = useState(0)
+	const [isTournamentVisible, setIsTournamentVisible] = useState(false)
+
+	// Teams carousel state
+	const [currentTeamSlide, setCurrentTeamSlide] = useState(0)
+	const [isTeamVisible, setIsTeamVisible] = useState(false)
+
+	// Players carousel state
+	const [currentPlayerSlide, setCurrentPlayerSlide] = useState(0)
+	const [isPlayerVisible, setIsPlayerVisible] = useState(false)
 
 	const games = ['PUBGM', 'CS2', 'MLBB', 'DOTA 2', 'YANA']
 
@@ -152,8 +163,6 @@ const Main = () => {
 	]
 
 	const [currentSlide, setCurrentSlide] = useState(0)
-	const [currentTeamSlide, setCurrentTeamSlide] = useState(0)
-	const [currentPlayerSlide, setCurrentPlayerSlide] = useState(0)
 
 	const players = [
 		{
@@ -213,6 +222,134 @@ const Main = () => {
 		}
 	]
 
+	// Tournament carousel settings
+	const tournamentSettings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		fade: false,
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	}
+
+	// Teams carousel settings
+	const teamSettings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		fade: false,
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	}
+
+	// Players carousel settings
+	const playerSettings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		fade: false,
+		cssEase: 'linear',
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	}
+
+	// Intersection Observer for carousels
+	useEffect(() => {
+		const tournamentObserver = new IntersectionObserver(
+			([entry]) => {
+				setIsTournamentVisible(entry.isIntersecting)
+			},
+			{ threshold: 0.5 }
+		)
+
+		const teamObserver = new IntersectionObserver(
+			([entry]) => {
+				setIsTeamVisible(entry.isIntersecting)
+			},
+			{ threshold: 0.5 }
+		)
+
+		const playerObserver = new IntersectionObserver(
+			([entry]) => {
+				setIsPlayerVisible(entry.isIntersecting)
+			},
+			{ threshold: 0.5 }
+		)
+
+		const tournamentElement = document.querySelector('.tournament-carousel')
+		const teamElement = document.querySelector('.team-carousel')
+		const playerElement = document.querySelector('.player-carousel')
+
+		if (tournamentElement) tournamentObserver.observe(tournamentElement)
+		if (teamElement) teamObserver.observe(teamElement)
+		if (playerElement) playerObserver.observe(playerElement)
+
+		return () => {
+			if (tournamentElement) tournamentObserver.unobserve(tournamentElement)
+			if (teamElement) teamObserver.unobserve(teamElement)
+			if (playerElement) playerObserver.unobserve(playerElement)
+		}
+	}, [])
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -224,16 +361,45 @@ const Main = () => {
 			}
 		}
 		fetchData()
-	
+
 		const interval = setInterval(() => {
 			setCurrentSlide(prev => (prev >= tournaments.length - 3 ? 0 : prev + 1))
 			setCurrentTeamSlide(prev => (prev >= topTeams.length - 3 ? 0 : prev + 1))
 			setCurrentPlayerSlide(prev => (prev >= players.length - 3 ? 0 : prev + 1))
 		}, 3000)
-	
+
 		return () => clearInterval(interval)
 	}, [tournaments.length, topTeams.length, players.length])
-	
+
+	// Tournament carousel auto-slide effect
+	useEffect(() => {
+		if (isTournamentVisible) {
+			const interval = setInterval(() => {
+				setCurrentTournamentSlide(prev => (prev >= tournaments.length - 3 ? 0 : prev + 1))
+			}, 3000)
+			return () => clearInterval(interval)
+		}
+	}, [isTournamentVisible, tournaments.length])
+
+	// Teams carousel auto-slide effect
+	useEffect(() => {
+		if (isTeamVisible) {
+			const interval = setInterval(() => {
+				setCurrentTeamSlide(prev => (prev >= topTeams.length - 3 ? 0 : prev + 1))
+			}, 3000)
+			return () => clearInterval(interval)
+		}
+	}, [isTeamVisible, topTeams.length])
+
+	// Players carousel auto-slide effect
+	useEffect(() => {
+		if (isPlayerVisible) {
+			const interval = setInterval(() => {
+				setCurrentPlayerSlide(prev => (prev >= players.length - 3 ? 0 : prev + 1))
+			}, 3000)
+			return () => clearInterval(interval)
+		}
+	}, [isPlayerVisible, players.length])
 
 	const getHeroText = () => {
 		switch (language) {
@@ -674,7 +840,7 @@ const Main = () => {
 								>
 									<h1 className='text-white font-kanit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-black italic '>
 
-									{getTournamentsText()}
+										{getTournamentsText()}
 									</h1>
 								</motion.h2>
 								<motion.div
@@ -733,33 +899,35 @@ const Main = () => {
 						</div>
 
 						{/* Tournament Cards */}
-						<div className="relative mb-16">
+						<div className="relative mb-16 tournament-carousel">
 							<div className="slider-container">
-								<Slider {...settings} initialSlide={currentSlide}>
+								<Slider {...tournamentSettings}>
 									{tournaments.map((tournament) => (
 										<div key={tournament.id} className="px-2">
-											<motion.div
-												className="rounded-2xl overflow-hidden"
-												initial={{ opacity: 0, y: 20 }}
-												animate={{ opacity: 1, y: 0 }}
-												transition={{ duration: 0.5 }}
-											>
-												<img
-													src={tournament.image}
-													alt={tournament.title}
-													className="w-full h-48 sm:h-60 object-cover border border-white"
-												/>
-												<div className="p-4 sm:p-6">
-													<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
-														<span className="text-white font-bold text-sm sm:text-base">{getGameText()} {tournament.game}</span>
-														<span className="text-white font-bold text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
+											<Link to={`/${language}/turnir/${tournament.id}`}>
+												<motion.div
+													className="rounded-2xl overflow-hidden"
+													initial={{ opacity: 0, y: 20 }}
+													animate={{ opacity: 1, y: 0 }}
+													transition={{ duration: 0.5 }}
+												>
+													<img
+														src={tournament.image}
+														alt={tournament.title}
+														className="w-full h-48 sm:h-60 object-cover border border-white"
+													/>
+													<div className="p-4 sm:p-6">
+														<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3">
+															<span className="text-white font-bold text-sm sm:text-base">{getGameText()} {tournament.game}</span>
+															<span className="text-white font-bold text-sm sm:text-base">{getDateText()} {tournament.date} | {tournament.time}</span>
+														</div>
+														<h3 className="text-[#FF9600] font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
+														<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+															<span className="font-bold text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
+														</div>
 													</div>
-													<h3 className="text-[#FF9600] font-bold text-lg sm:text-xl mb-3">{tournament.title}</h3>
-													<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-														<span className="font-bold text-white text-base sm:text-lg">{getPrizeText()} ${tournament.prize}</span>
-													</div>
-												</div>
-											</motion.div>
+												</motion.div>
+											</Link>
 										</div>
 									))}
 								</Slider>
@@ -769,7 +937,7 @@ const Main = () => {
 						{/* Tournaments View All Button */}
 						<div className="text-center mb-16">
 							<Link
-								to={`/${language}/turnirlar`}
+								to={`/${language}/turnirlar#top`}
 								className="inline-block w-[250px] sm:w-[300px] h-[60px] sm:h-[73px] rounded-[80px] font-kanit text-2xl sm:text-3xl lg:text-[36px] font-medium text-white relative hover:scale-105 transition-transform duration-300"
 								style={{
 									background: 'transparent',
@@ -866,13 +1034,15 @@ const Main = () => {
 						</div>
 
 						{/* Teams Grid */}
-						<div className="relative mb-16">
+						<div className="relative mb-16 team-carousel">
 							<div className="slider-container">
-								<Slider {...settings} initialSlide={currentTeamSlide}>
+								<Slider {...teamSettings}>
 									{topTeams.map((team) => (
 										<div key={team.id} className="px-2">
 											<motion.div
-												className="w-full max-w-[437px] h-[257px] border-1 border-white rounded-2xl p-4 sm:p-6 mx-auto"
+												className="w-full max-w-[437px] h-[257px] 
+                        border-1 border-white rounded-2xl p-4 sm:p-6 
+                        mx-auto"
 												initial={{ opacity: 0, y: 20 }}
 												animate={{ opacity: 1, y: 0 }}
 												transition={{ duration: 0.5 }}
@@ -1012,30 +1182,39 @@ const Main = () => {
 						</div>
 
 						{/* Players Grid */}
-						<div className="relative mb-16">
+						<div className="relative mb-16 player-carousel">
 							<div className="slider-container">
-								<Slider {...settings} initialSlide={currentPlayerSlide}>
+								<Slider {...playerSettings}>
 									{players.map((player) => (
 										<div key={player.id} className="px-2">
 											<motion.div
-												className="rounded-2xl p-4 sm:p-6 w-full sm:w-[486px] min-h-[500px] "
+												className="rounded-2xl p-4 sm:p-6 w-full sm:w-
+                        [486px] min-h-[500px] "
 												initial={{ opacity: 0, y: 20 }}
 												animate={{ opacity: 1, y: 0 }}
 												transition={{ duration: 0.5 }}
 											>
 												<div className="flex flex-col md:flex-row-reverse md:justify-center h-full relative">
 													{/* Player Image */}
-													<div className="relative w-[160px] sm:w-[200px] md:w-full h-[200px] sm:h-[250px] md:h-full rounded-lg overflow-hidden mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0 left-0 max-sm:top-0 max-sm:left-0">
+													<div className="relative w-[160px] sm:w-
+                          [200px] md:w-full h-[200px] sm:h-[250px] 
+                          md:h-full rounded-lg overflow-hidden 
+                          mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0 left-0 
+                          max-sm:top-0 max-sm:left-0">
 														<img
 															src={player.image}
 															alt={player.name}
-															className="w-80 h-100 object-cover object-center ml-25 mt-10 max-md:mt-0 max-md:ml-0 max-sm:w-full max-sm:h-full"
+															className="w-80 h-100 object-cover 
+                              object-center ml-25 mt-10 max-md:mt-0 
+                              max-md:ml-0 max-sm:w-full max-sm:h-full"
 														/>
-														<div className="absolute inset-0 via-transparent to-transparent"></div>
+														<div className="absolute inset-0 
+                            via-transparent to-transparent"></div>
 													</div>
 
 													{/* Stats */}
-													<div className="flex flex-col gap-3 w-full absolute left-0 max-md:top-70 ">
+													<div className="flex flex-col gap-3 w-full 
+                          absolute left-0 max-md:top-70 ">
 														{/* Player Name and Flag */}
 														<div className="flex items-center gap-2">
 															<span className="text-lg sm:text-xl md:text-2xl">{player.flag}</span>
@@ -1050,7 +1229,9 @@ const Main = () => {
 																</div>
 																<div>
 																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getRatingText()}</span>
-																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.rating}</p>
+																	<p className="text-white font-bold 
+                                  text-sm sm:text-lg md:text-xl w-20">
+																		{player.rating}</p>
 																</div>
 															</div>
 
@@ -1061,7 +1242,9 @@ const Main = () => {
 																</div>
 																<div>
 																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getTeamText()}</span>
-																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-40 max-sm:w-20">{player.team}</p>
+																	<p className="text-white font-bold 
+                                  text-sm sm:text-lg md:text-xl w-40 
+                                  max-sm:w-20">{player.team}</p>
 																</div>
 															</div>
 
@@ -1072,7 +1255,9 @@ const Main = () => {
 																</div>
 																<div>
 																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getMatchesText()}</span>
-																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.matches}</p>
+																	<p className="text-white font-bold 
+                                  text-sm sm:text-lg md:text-xl w-20">
+																		{player.matches}</p>
 																</div>
 															</div>
 
@@ -1083,7 +1268,9 @@ const Main = () => {
 																</div>
 																<div>
 																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getWinsText()}</span>
-																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.wins}</p>
+																	<p className="text-white font-bold 
+                                  text-sm sm:text-lg md:text-xl w-20">
+																		{player.wins}</p>
 																</div>
 															</div>
 
@@ -1091,11 +1278,12 @@ const Main = () => {
 															<div className="flex items-center gap-2 sm:gap-3">
 																<div className="bg-[#FF9600] w-10 h-10 rounded-lg flex items-center justify-center">
 																	<GiPirateFlag className="text-white w-5 h-5" />
-
 																</div>
 																<div>
 																	<span className="text-[#FF9600] text-[10px] sm:text-xs md:text-sm font-medium uppercase">{getDefeatsText()}</span>
-																	<p className="text-white font-bold text-sm sm:text-lg md:text-xl w-20">{player.defeats}</p>
+																	<p className="text-white font-bold 
+                                  text-sm sm:text-lg md:text-xl w-20">
+																		{player.defeats}</p>
 																</div>
 															</div>
 														</div>

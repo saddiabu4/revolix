@@ -2,19 +2,19 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { FaMedal, FaTrophy, FaUser, FaUsers } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import jamoa1 from '../assets/jamoa1.png'
 import orqaFon1 from '../assets/orqafon1.png'
+import player1Image from '../assets/oyinchi1.png'
 import turnirImage from '../assets/turnir-img1.png'
 import backgroundImage from '../assets/turnirlar-img-bg.png'
 import statisticImage from '../assets/turnirlar-statistic-bg-img.png'
-import Footer from '../components/Footer'
-import player1Image from '../assets/oyinchi1.png'
 import Navbar from '../components/Navbar'
 import { useLanguage } from '../context/LanguageContext'
 
 const Turnirlar = () => {
 	const { language } = useLanguage()
+	const location = useLocation()
 	const [activeGame, setActiveGame] = useState('PUBGM')
 	const [currentPage, setCurrentPage] = useState(1)
 	const itemsPerPage = 9
@@ -26,6 +26,11 @@ const Turnirlar = () => {
 	})
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+
+	useEffect(() => {
+		// Scroll to top when component mounts or location changes
+		window.scrollTo(0, 0)
+	}, [location])
 
 	useEffect(() => {
 		const fetchStats = async () => {
@@ -817,13 +822,13 @@ const Turnirlar = () => {
 									<div className="h-[2px] flex-1 bg-[#FF9600]"></div>
 								</h2>
 								<div className="flex justify-center w-full max-w-[600px] h-[357px] rounded-2xl p-6 mx-auto bg-[#0D0D0D] border-1 border-white"
-								style={{
-									background: 'transparent',
-									border: '1px solid transparent',
-									backgroundImage: 'linear-gradient(#0D0D0D, #0D0D0D), linear-gradient(to right, #FFFFFF, #666666, #000000, #FFFFFF)',
-									backgroundOrigin: 'border-box',
-									backgroundClip: 'padding-box, border-box',
-								}}>
+									style={{
+										background: 'transparent',
+										border: '1px solid transparent',
+										backgroundImage: 'linear-gradient(#0D0D0D, #0D0D0D), linear-gradient(to right, #FFFFFF, #666666, #000000, #FFFFFF)',
+										backgroundOrigin: 'border-box',
+										backgroundClip: 'padding-box, border-box',
+									}}>
 									<div className="flex items-center gap-6 h-full">
 										{/* Team Logo */}
 										<div className="w-[175px] h-[175px] rounded-xl overflow-hidden flex items-center justify-center">
