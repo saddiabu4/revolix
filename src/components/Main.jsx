@@ -22,7 +22,7 @@ import Navbar from './Navbar'
 import { FaEarDeaf } from 'react-icons/fa6'
 
 const Main = () => {
-	const { language, t } = useLanguage()
+	const { language } = useLanguage()
 	const [stats, setStats] = useState({
 		tournaments: 0,
 		teams: 0,
@@ -214,49 +214,26 @@ const Main = () => {
 	]
 
 	useEffect(() => {
-		// Backend dan ma'lumotlarni olish
-		fetch('http://localhost:3000/api/stats')
-			.then(res => res.json())
-			.then(data => {
+		const fetchData = async () => {
+			try {
+				const res = await fetch('http://localhost:3000/api/stats')
+				const data = await res.json()
 				setStats(data)
-			})
-			.catch(err => {
+			} catch (err) {
 				console.error('Xatolik yuz berdi:', err)
-			})
-
-		const tournamentTimer = setInterval(() => {
-			setCurrentSlide((prev) => {
-				if (prev >= tournaments.length - 3) {
-					return 0
-				}
-				return prev + 1
-			})
-		}, 3000)
-
-		const teamTimer = setInterval(() => {
-			setCurrentTeamSlide((prev) => {
-				if (prev >= topTeams.length - 3) {
-					return 0
-				}
-				return prev + 1
-			})
-		}, 3000)
-
-		const playerTimer = setInterval(() => {
-			setCurrentPlayerSlide((prev) => {
-				if (prev >= players.length - 3) {
-					return 0
-				}
-				return prev + 1
-			})
-		}, 3000)
-
-		return () => {
-			clearInterval(tournamentTimer)
-			clearInterval(teamTimer)
-			clearInterval(playerTimer)
+			}
 		}
-	}, [])
+		fetchData()
+	
+		const interval = setInterval(() => {
+			setCurrentSlide(prev => (prev >= tournaments.length - 3 ? 0 : prev + 1))
+			setCurrentTeamSlide(prev => (prev >= topTeams.length - 3 ? 0 : prev + 1))
+			setCurrentPlayerSlide(prev => (prev >= players.length - 3 ? 0 : prev + 1))
+		}, 3000)
+	
+		return () => clearInterval(interval)
+	}, [tournaments.length, topTeams.length, players.length])
+	
 
 	const getHeroText = () => {
 		switch (language) {
@@ -382,18 +359,18 @@ const Main = () => {
 		}
 	}
 
-	const getTeamsText = () => {
-		switch (language) {
-			case 'uz':
-				return "JAMOALAR:"
-			case 'ru':
-				return "КОМАНДЫ:"
-			case 'en':
-				return "TEAMS:"
-			default:
-				return "JAMOALAR:"
-		}
-	}
+	// const getTeamsText = () => {
+	// 	switch (language) {
+	// 		case 'uz':
+	// 			return "JAMOALAR:"
+	// 		case 'ru':
+	// 			return "КОМАНДЫ:"
+	// 		case 'en':
+	// 			return "TEAMS:"
+	// 		default:
+	// 			return "JAMOALAR:"
+	// 	}
+	// }
 
 	const getWinsText = () => {
 		switch (language) {
@@ -758,7 +735,7 @@ const Main = () => {
 						{/* Tournament Cards */}
 						<div className="relative mb-16">
 							<div className="slider-container">
-								<Slider {...settings}>
+								<Slider {...settings} initialSlide={currentSlide}>
 									{tournaments.map((tournament) => (
 										<div key={tournament.id} className="px-2">
 											<motion.div
@@ -891,7 +868,7 @@ const Main = () => {
 						{/* Teams Grid */}
 						<div className="relative mb-16">
 							<div className="slider-container">
-								<Slider {...settings}>
+								<Slider {...settings} initialSlide={currentTeamSlide}>
 									{topTeams.map((team) => (
 										<div key={team.id} className="px-2">
 											<motion.div
@@ -1037,7 +1014,7 @@ const Main = () => {
 						{/* Players Grid */}
 						<div className="relative mb-16">
 							<div className="slider-container">
-								<Slider {...settings}>
+								<Slider {...settings} initialSlide={currentPlayerSlide}>
 									{players.map((player) => (
 										<div key={player.id} className="px-2">
 											<motion.div
@@ -1048,7 +1025,7 @@ const Main = () => {
 											>
 												<div className="flex flex-col md:flex-row-reverse md:justify-center h-full relative">
 													{/* Player Image */}
-													<div className="relative w-[160px] sm:w-[200px] md:w-full h-[200px] sm:h-[250px] md:h-full rounded-lg overflow-hidden mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0 absolute left-0 max-sm:top-0 max-sm:left-0">
+													<div className="relative w-[160px] sm:w-[200px] md:w-full h-[200px] sm:h-[250px] md:h-full rounded-lg overflow-hidden mx-auto md:mx-0 mb-4 sm:mb-6 md:mb-0 left-0 max-sm:top-0 max-sm:left-0">
 														<img
 															src={player.image}
 															alt={player.name}
