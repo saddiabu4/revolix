@@ -28,11 +28,6 @@ const Turnirlar = () => {
 	const [error, setError] = useState(null)
 
 	useEffect(() => {
-		// Scroll to top when component mounts or location changes
-		window.scrollTo(0, 0)
-	}, [location])
-
-	useEffect(() => {
 		const fetchStats = async () => {
 			try {
 				setLoading(true)
@@ -268,6 +263,347 @@ const Turnirlar = () => {
 			teamSize: "128",
 			status: "ACTIVE",
 			image: turnirImage
+		},
+		{
+			id: 20,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 21,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 22,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 23,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 24,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 25,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.05.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 26,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.02.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 27,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.02.2025",
+			time: "17:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 28,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 29,
+			title: "Valorant Clash",
+			game: "VALORANT",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 30,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 31,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 32,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage
+		},
+		{
+			id: 33,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 34,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 35,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 36,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 37,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 38,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 39,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 40,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 41,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 42,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 43,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 44,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 45,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 46,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 47,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 48,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 49,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
+		},
+		{
+			id: 50,
+			title: "Vlaannn",
+			game: "Valorfa",
+			date: "25.02.2025",
+			time: "11:00",
+			prize: "200$",
+			teamSize: "128",
+			status: "ACTIVE",
+			image: turnirImage,
 		}
 	]
 
@@ -408,6 +744,90 @@ const Turnirlar = () => {
 		}
 	}
 
+	const getRegisterText = () => {
+		switch (language) {
+			case 'uz': return "RO'YXATDAN O'TISH"
+			case 'ru': return "ЗАРЕГИСТРИРОВАТЬСЯ"
+			case 'en': return "REGISTER"
+			default: return "RO'YXATDAN O'TISH"
+		}
+	}
+
+	const getTopPlayersText = () => {
+		switch (language) {
+			case 'uz': return "TOP O'YINCHILAR"
+			case 'ru': return "ТОП ИГРОКИ"
+			case 'en': return "TOP PLAYERS"
+			default: return "TOP O'YINCHILAR"
+		}
+	}
+
+	const getTopTeamsText = () => {
+		switch (language) {
+			case 'uz': return "TOP JAMOALAR"
+			case 'ru': return "ТОП КОМАНДЫ"
+			case 'en': return "TOP TEAMS"
+			default: return "TOP JAMOALAR"
+		}
+	}
+
+	const getRatingText = () => {
+		switch (language) {
+			case 'uz': return "REYTING"
+			case 'ru': return "РЕЙТИНГ"
+			case 'en': return "RATING"
+			default: return "REYTING"
+		}
+	}
+	const getTeamText = () => {
+		switch (language) {
+			case 'uz': return "JAMOA"
+			case 'ru': return "КОМАНДА"
+			case 'en': return "TEAM"
+			default: return "JAMOA"
+		}
+	}
+	const getMatchesText = () => {
+		switch (language) {
+			case 'uz': return "MATCHLAR"
+			case 'ru': return "МАТЧИ"
+			case 'en': return "MATCHES"
+			default: return "MATCHLAR"
+		}
+	}
+	const getWinsText = () => {
+		switch (language) {
+			case 'uz': return "G'ALABA"
+			case 'ru': return "ПОБЕДЫ"
+			case 'en': return "WINS"
+			default: return "G'ALABA"
+		}
+	}
+	const getLossesText = () => {
+		switch (language) {
+			case 'uz': return "MAG'LUBIYAT"
+			case 'ru': return "ПОРАЖЕНИЯ"
+			case 'en': return "LOSSES"
+			default: return "MAG'LUBIYAT"
+		}
+	}
+	const getTotalKillsText = () => {
+		switch (language) {
+			case 'uz': return "JAMI O'LDIRISHLAR"
+			case 'ru': return "ВСЕГО УБИЙСТВ"
+			case 'en': return "TOTAL KILLS"
+			default: return "JAMI O'LDIRISHLAR"
+		}
+	}
+	const getTotalGamesText = () => {
+		switch (language) {
+			case 'uz': return "JAMI O'YIN"
+			case 'ru': return "ВСЕГО ИГР"
+			case 'en': return "TOTAL GAMES"
+			default: return "JAMI O'YIN"
+		}
+	}
+
 	// Pagination calculations
 	const indexOfLastItem = currentPage * itemsPerPage
 	const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -417,33 +837,17 @@ const Turnirlar = () => {
 	// Generate page numbers array with dots
 	const getPageNumbers = () => {
 		const pageNumbers = []
-		if (totalPages <= 7) {
+		if (totalPages <= 5) {
 			for (let i = 1; i <= totalPages; i++) {
 				pageNumbers.push(i)
 			}
 		} else {
-			if (currentPage <= 3) {
-				for (let i = 1; i <= 3; i++) {
-					pageNumbers.push(i)
-				}
-				pageNumbers.push('...')
-				pageNumbers.push(totalPages - 1)
-				pageNumbers.push(totalPages)
-			} else if (currentPage >= totalPages - 2) {
-				pageNumbers.push(1)
-				pageNumbers.push(2)
-				pageNumbers.push('...')
-				for (let i = totalPages - 2; i <= totalPages; i++) {
-					pageNumbers.push(i)
-				}
+			if (currentPage <= 2) {
+				pageNumbers.push(1, 2, 3, '...', totalPages)
+			} else if (currentPage >= totalPages - 1) {
+				pageNumbers.push(1, '...', totalPages - 2, totalPages - 1, totalPages)
 			} else {
-				pageNumbers.push(1)
-				pageNumbers.push('...')
-				pageNumbers.push(currentPage - 1)
-				pageNumbers.push(currentPage)
-				pageNumbers.push(currentPage + 1)
-				pageNumbers.push('...')
-				pageNumbers.push(totalPages)
+				pageNumbers.push(1, '...', currentPage, '...', totalPages)
 			}
 		}
 		return pageNumbers
@@ -684,7 +1088,7 @@ const Turnirlar = () => {
 											to={`/${language}/tournaments/${tournament.id}`}
 											className="block text-center mt-4 px-4 py-2 border-1 text-white hover:bg-[#FF9600]/90 transition-colors"
 										>
-											RO'YXATDAN O'TISH
+											{getRegisterText()}
 										</Link>
 									</div>
 								</motion.div>
@@ -731,7 +1135,7 @@ const Turnirlar = () => {
 							<div className="">
 								<h2 className="text-white text-3xl font-bold mb-8 flex items-center gap-4">
 									<div className="h-[2px] flex-1 bg-[#FF9600]"></div>
-									TOP O'YINCHILAR
+									{getTopPlayersText()}
 									<div className="h-[2px] flex-1 bg-[#FF9600]"></div>
 								</h2>
 								<div className="w-full max-w-[600px] rounded-2xl mx-auto">
@@ -759,7 +1163,7 @@ const Turnirlar = () => {
 															<FaTrophy className="text-white text-lg sm:text-xl" />
 														</div>
 														<div className="text-white">
-															<div className="text-sm sm:text-base opacity-70">REYTING</div>
+															<div className="text-sm sm:text-base opacity-70">{getRatingText()}</div>
 															<div className="font-bold text-base sm:text-lg">50</div>
 														</div>
 													</div>
@@ -768,7 +1172,7 @@ const Turnirlar = () => {
 															<FaUsers className="text-white text-lg sm:text-xl" />
 														</div>
 														<div className="text-white">
-															<div className="text-sm sm:text-base opacity-70">JAMOA</div>
+															<div className="text-sm sm:text-base opacity-70">{getTeamText()}</div>
 															<div className="font-bold text-base sm:text-lg">Natus Vincere</div>
 														</div>
 													</div>
@@ -777,7 +1181,7 @@ const Turnirlar = () => {
 															<FaMedal className="text-white text-lg sm:text-xl" />
 														</div>
 														<div className="text-white">
-															<div className="text-sm sm:text-base opacity-70">MATCHES</div>
+															<div className="text-sm sm:text-base opacity-70">{getMatchesText()}</div>
 															<div className="font-bold text-base sm:text-lg">150</div>
 														</div>
 													</div>
@@ -786,7 +1190,7 @@ const Turnirlar = () => {
 															<FaTrophy className="text-white text-lg sm:text-xl" />
 														</div>
 														<div className="text-white">
-															<div className="text-sm sm:text-base opacity-70">G'ALABA</div>
+															<div className="text-sm sm:text-base opacity-70">{getWinsText()}</div>
 															<div className="font-bold text-base sm:text-lg">100</div>
 														</div>
 													</div>
@@ -795,7 +1199,7 @@ const Turnirlar = () => {
 															<FaUser className="text-white text-lg sm:text-xl" />
 														</div>
 														<div className="text-white">
-															<div className="text-sm sm:text-base opacity-70">MAG'LUBIYAT</div>
+															<div className="text-sm sm:text-base opacity-70">{getLossesText()}</div>
 															<div className="font-bold text-base sm:text-lg">50</div>
 														</div>
 													</div>
@@ -818,7 +1222,7 @@ const Turnirlar = () => {
 							<div className="">
 								<h2 className="text-white text-3xl font-bold mb-8 flex items-center gap-4 ">
 									<div className="h-[2px] flex-1 bg-[#FF9600]"></div>
-									TOP JAMOALAR
+									{getTopTeamsText()}
 									<div className="h-[2px] flex-1 bg-[#FF9600]"></div>
 								</h2>
 								<div className="flex justify-center w-full max-w-[600px] h-[357px] rounded-2xl p-6 mx-auto bg-[#0D0D0D] border-1 border-white"
@@ -845,19 +1249,19 @@ const Turnirlar = () => {
 											</h3>
 											<div className="flex flex-col gap-2">
 												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-2">
-													<span className="text-lg text-gray-400">G'alaba:</span>
+													<span className="text-lg text-gray-400">{getWinsText()}:</span>
 													<span className="text-lg text-white">25</span>
 												</div>
 												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-2">
-													<span className="text-lg text-gray-400">Mag'lubiyat:</span>
+													<span className="text-lg text-gray-400">{getLossesText()}:</span>
 													<span className="text-lg text-white">25</span>
 												</div>
 												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-2">
-													<span className="text-lg text-gray-400">Jami o'tdirishlar:</span>
+													<span className="text-lg text-gray-400">{getTotalKillsText()}:</span>
 													<span className="text-lg text-white">25</span>
 												</div>
 												<div className="flex justify-between items-center border-b border-[#FF9600]/30 pb-2">
-													<span className="text-lg text-gray-400">Jami o'yin:</span>
+													<span className="text-lg text-gray-400">{getTotalGamesText()}:</span>
 													<span className="text-lg text-white">25</span>
 												</div>
 											</div>
