@@ -506,21 +506,7 @@ const PubgmTournaments = () => {
 				>
 					<div className="absolute inset-0 bg-black/50"></div>
 					<div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-						{/* Game Filter Dropdown */}
-						<div className="mb-8">
-							<select
-								value={activeGame}
-								onChange={(e) => setActiveGame(e.target.value)}
-								className="bg-[#1A1A1A] text-white px-4 py-2 rounded-lg border border-[#FF9600] focus:outline-none focus:ring-2 focus:ring-[#FF9600]"
-							>
-								{games.map((game) => (
-									<option key={game} value={game}>
-										{game}
-									</option>
-								))}
-							</select>
-						</div>
-
+						
 						{/* Tournaments Grid */}
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
 							{currentItems.map((tournament, index) => (
