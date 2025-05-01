@@ -10,7 +10,7 @@ const TurnirDetails = () => {
 	const navigate = useNavigate()
 	const [tournament, setTournament] = useState(null)
 	const [loading, setLoading] = useState(true)
-
+	
 	useEffect(() => {
 		// Bu yerda API dan turnir ma'lumotlarini olish kerak
 		// Hozircha mock data ishlatamiz
