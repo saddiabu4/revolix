@@ -937,7 +937,7 @@ const Main = () => {
 						{/* Tournaments View All Button */}
 						<div className="text-center mb-16">
 							<Link
-								to={`/${language}/turnirlar#top`}
+								to={`/${language}/turnirlar`}
 								className="inline-block w-[250px] sm:w-[300px] h-[60px] sm:h-[73px] rounded-[80px] font-kanit text-2xl sm:text-3xl lg:text-[36px] font-medium text-white relative hover:scale-105 transition-transform duration-300"
 								style={{
 									background: 'transparent',

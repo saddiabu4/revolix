@@ -12,10 +12,10 @@ import statisticImage from "../../assets/turnirlar-statistic-bg-img.png"
 import Navbar from "../../components/Navbar"
 import { useLanguage } from "../../context/LanguageContext"
 
-const PubgmTournaments = () => {
+const MlbbTournaments = () => {
 	const { language } = useLanguage()
 	const location = useLocation()
-	const [activeGame, setActiveGame] = useState('PUBGM')
+	const [activeGame, setActiveGame] = useState('MLBB')
 	const [currentPage, setCurrentPage] = useState(1)
 	const itemsPerPage = 9
 	const [stats, setStats] = useState({
@@ -51,13 +51,13 @@ const PubgmTournaments = () => {
 		fetchStats()
 	}, [])
 
-	const games = ['PUBGM', 'CS2', 'MLBB', 'DOTA 2', 'YANA']
+	const games = ['MLBB', 'CS2', 'DOTA 2', 'PUBGM', 'YANA']
 
 	const tournaments = [
 		{
 			id: 1,
-			title: "PUBGM Pro League Season 2",
-			game: "PUBGM",
+			title: "MLBB Pro League Season 2",
+			game: "MLBB",
 			date: "15.04.2025",
 			time: "18:00",
 			prize: "250$",
@@ -65,19 +65,19 @@ const PubgmTournaments = () => {
 			status: "NON ACTIVE",
 			image: turnirImage
 		},
-		// Add more PUBGM tournaments here
+		// Add more MLBB tournaments here
 	]
 
 	const getHeroText = () => {
 		switch (language) {
 			case 'uz':
-				return "HAR BIR O'Q – IMKONIYAT, HAR BIR HARAKAT – NATIJA!6"
+				return "HAR BIR QADAM – IMKONIYAT, HAR BIR HARAKAT – NATIJA5!"
 			case 'ru':
-				return "КАЖДЫЙ ВЫСТРЕЛ – ВОЗМОЖНОСТЬ, КАЖДОЕ ДЕЙСТВИЕ – РЕЗУЛЬТАТ!"
+				return "КАЖДЫЙ ШАГ – ВОЗМОЖНОСТЬ, КАЖДОЕ ДЕЙСТВИЕ – РЕЗУЛЬТАТ!"
 			case 'en':
-				return "EVERY SHOT IS AN OPPORTUNITY, EVERY ACTION IS A RESULT!"
+				return "EVERY STEP IS AN OPPORTUNITY, EVERY ACTION IS A RESULT!"
 			default:
-				return "HAR BIR O'Q – IMKONIYAT, HAR BIR HARAKAT – NATIJA!"
+				return "HAR BIR QADAM – IMKONIYAT, HAR BIR HARAKAT – NATIJA!"
 		}
 	}
 
@@ -130,13 +130,13 @@ const PubgmTournaments = () => {
 	const getHeaderText = () => {
 		switch (language) {
 			case 'uz':
-				return "PUBGM TURNIRLAR"
+				return "MLBB TURNIRLAR"
 			case 'ru':
-				return "PUBGM ТУРНИРЫ"
+				return "MLBB ТУРНИРЫ"
 			case 'en':
-				return "PUBGM TOURNAMENTS"
+				return "MLBB TOURNAMENTS"
 			default:
-				return "PUBGM TURNIRLAR"
+				return "MLBB TURNIRLAR"
 		}
 	}
 
@@ -766,4 +766,4 @@ const PubgmTournaments = () => {
 	)
 }
 
-export default PubgmTournaments 
+export default MlbbTournaments 

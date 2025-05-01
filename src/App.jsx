@@ -20,10 +20,10 @@ import SiteUpdates from './pages/news/SiteUpdates'
 import TopPlayers from './pages/rating/TopPlayers'
 import TopTeams from './pages/rating/TopTeams'
 import Cs2Tournaments from './pages/tournaments/Cs2Tournaments'
-import Dota1Tournaments from './pages/tournaments/Dota1Tournaments'
 import Dota2Tournaments from './pages/tournaments/Dota2Tournaments'
+import Dota1Tournaments from './pages/tournaments/Dota1Tournaments'
 import FreeFireTournaments from './pages/tournaments/FreeFireTournaments'
-import MlbbTournaments from './pages/tournaments/MlbbTournaments'
+import MibbTournaments from './pages/tournaments/MibbTournaments'
 import PubgmTournaments from './pages/tournaments/PubgmTournaments'
 import ValorantTournaments from './pages/tournaments/ValorantTournaments'
 
@@ -56,7 +56,7 @@ const App = () => {
                         <Route path="tournaments/pubgm" element={<PubgmTournaments />} />
                         <Route path="tournaments/dota2" element={<Dota2Tournaments />} />
                         <Route path="tournaments/cs2" element={<Cs2Tournaments />} />
-                        <Route path="tournaments/mlbb" element={<MlbbTournaments />} />
+                        <Route path="tournaments/mlbb" element={<MibbTournaments />} />
                         <Route path="tournaments/dota1" element={<Dota1Tournaments />} />
                         <Route path="tournaments/valorant" element={<ValorantTournaments />} />
                         <Route path="tournaments/freefire" element={<FreeFireTournaments />} />

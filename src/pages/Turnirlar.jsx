@@ -1065,7 +1065,7 @@ const Turnirlar = () => {
 											className="w-full h-[200px] object-cover"
 										/>
 									</div>
-									<div className="p-4">
+									<div className="p-4 relative">
 										<div className="flex justify-between items-center mb-2">
 											<span className="text-white text-sm">{getGameText()} {tournament.game}</span>
 											<span className="text-white text-sm">{getDateText()} {tournament.date} | {tournament.time}</span>
@@ -1084,11 +1084,22 @@ const Turnirlar = () => {
 												</span>
 											</span>
 										</div>
+										<div className='mt-4 bg-white' 
+										style={{
+											width: '100%',
+											height: '1px',
+											backgroundColor: '#fff',
+											position: 'absolute',
+											bottom: '50px',
+											left: '0',
+											
+											
+										}}></div>
 										<Link
 											to={`/${language}/tournaments/${tournament.id}`}
-											className="block text-center mt-4 px-4 py-2 border-1 text-white hover:bg-[#FF9600]/90 transition-colors"
+											className="block text-center py-0 text-white mt-4"
 										>
-											{getRegisterText()}
+																						{getRegisterText()}
 										</Link>
 									</div>
 								</motion.div>
