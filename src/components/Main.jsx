@@ -163,7 +163,6 @@ const Main = () => {
 	]
 
 	const [currentSlide, setCurrentSlide] = useState(0)
-
 	const players = [
 		{
 			id: 1,
@@ -525,19 +524,6 @@ const Main = () => {
 		}
 	}
 
-	// const getTeamsText = () => {
-	// 	switch (language) {
-	// 		case 'uz':
-	// 			return "JAMOALAR:"
-	// 		case 'ru':
-	// 			return "КОМАНДЫ:"
-	// 		case 'en':
-	// 			return "TEAMS:"
-	// 		default:
-	// 			return "JAMOALAR:"
-	// 	}
-	// }
-
 	const getWinsText = () => {
 		switch (language) {
 			case 'uz':
@@ -679,35 +665,6 @@ const Main = () => {
 			default:
 				return "MAG'LUBIYAT"
 		}
-	}
-
-	const settings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		arrows: true,
-		fade: false,
-		cssEase: 'linear',
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
-				}
-			},
-			{
-				breakpoint: 640,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			}
-		]
 	}
 
 	return (

@@ -1,6 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { FaCog, FaComments, FaInstagram, FaSignOutAlt, FaTelegram, FaTrophy, FaUser, FaUsers, FaYoutube } from 'react-icons/fa'
+import {
+	FaCog,
+	FaComments,
+	FaInstagram,
+	FaSignOutAlt,
+	FaTelegram,
+	FaTrophy,
+	FaUser,
+	FaUsers,
+	FaYoutube,
+} from 'react-icons/fa'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoTitle from '../assets/logo-title.png'
 import Logo from '../assets/Logo.png'
@@ -8,8 +18,8 @@ import { useLanguage } from '../context/LanguageContext'
 import LanguageSelect from './LanguageSelect'
 
 const userDemo = {
-	username: "esportsfan",
-	avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+	username: 'esportsfan',
+	avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
 }
 
 const Navbar = () => {
@@ -30,7 +40,10 @@ const Navbar = () => {
 			if (activeDropdown && !event.target.closest('.dropdown-container')) {
 				setActiveDropdown(null)
 			}
-			if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+			if (
+				userDropdownRef.current &&
+				!userDropdownRef.current.contains(event.target)
+			) {
 				setUserDropdown(false)
 			}
 		}
@@ -41,7 +54,7 @@ const Navbar = () => {
 
 	// Load user from localStorage on page load
 	useEffect(() => {
-		const savedUser = localStorage.getItem("user")
+		const savedUser = localStorage.getItem('user')
 		if (savedUser) {
 			setUser(JSON.parse(savedUser))
 		}
@@ -50,14 +63,14 @@ const Navbar = () => {
 	// Save user to localStorage when it changes
 	useEffect(() => {
 		if (user) {
-			localStorage.setItem("user", JSON.stringify(user))
+			localStorage.setItem('user', JSON.stringify(user))
 		}
 	}, [user])
 
 	// Handle logout
 	const handleLogout = () => {
 		setUser(null)
-		localStorage.removeItem("user")
+		localStorage.removeItem('user')
 		setUserDropdown(false)
 	}
 
@@ -163,10 +176,10 @@ const Navbar = () => {
 							language === 'uz'
 								? "SAYTDAGI O'ZGARISHLARI"
 								: language === 'ru'
-									? 'ИЗМЕНЕНИЯ НА САЙТЕ'
-									: language === 'en'
-										? 'SITE UPDATES'
-										: t('siteUpdates'),
+								? 'ИЗМЕНЕНИЯ НА САЙТЕ'
+								: language === 'en'
+								? 'SITE UPDATES'
+								: t('siteUpdates'),
 						path: `/${language}/news/site-updates`,
 						component: 'SiteUpdates',
 					},
@@ -281,10 +294,11 @@ const Navbar = () => {
 									)}
 									{link.dropdownItems.length > 0 && (
 										<ul
-											className={`absolute left-0 mt-5 w-[301px] bg-[#0D0D0DC7] rounded-[18px] border-2 border-white shadow-lg z-50 transition-all duration-300 ${activeDropdown === link.key
-												? 'opacity-100 visible'
-												: 'opacity-0 invisible'
-												} p-4 before:content-[''] before:absolute before:top-[-20px] before:left-0 before:w-full before:h-[20px]`}
+											className={`absolute left-0 mt-5 w-[301px] bg-[#0D0D0DC7] rounded-[18px] border-2 border-white shadow-lg z-50 transition-all duration-300 ${
+												activeDropdown === link.key
+													? 'opacity-100 visible'
+													: 'opacity-0 invisible'
+											} p-4 before:content-[''] before:absolute before:top-[-20px] before:left-0 before:w-full before:h-[20px]`}
 											onMouseEnter={() => setActiveDropdown(link.key)}
 											onMouseLeave={() => setActiveDropdown(null)}
 										>
@@ -334,76 +348,104 @@ const Navbar = () => {
 								</Link>
 							</>
 						) : (
-							<div className="relative" ref={userDropdownRef}>
+							<div className='relative' ref={userDropdownRef}>
 								<button
-									className="flex items-center focus:outline-none"
-									onClick={() => setUserDropdown((d) => !d)}
+									className='flex items-center focus:outline-none'
+									onClick={() => setUserDropdown(d => !d)}
 								>
 									<img
 										src={user.avatar}
-										alt="avatar"
-										className="w-9 h-9 rounded-full border-2 border-[#ff9600]"
+										alt='avatar'
+										className='w-9 h-9 rounded-full border-2 border-[#ff9600]'
 									/>
 									<svg
-										className={`w-4 h-4 ml-1 transition-transform text-white ${userDropdown ? "rotate-180" : ""}`}
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
+										className={`w-4 h-4 ml-1 transition-transform text-white ${
+											userDropdown ? 'rotate-180' : ''
+										}`}
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
 									>
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M19 9l-7 7-7-7'
+										/>
 									</svg>
 								</button>
 								{/* User Dropdown menu */}
 								{userDropdown && (
-									<div className="absolute right-0 mt-2 w-64 bg-[#0D0D0DC7] rounded-xl shadow-lg border border-white z-50 p-2">
-										<div className="flex flex-col divide-y divide-white/20">
+									<div className='absolute right-0 mt-2 w-64 bg-[#0D0D0DC7] rounded-xl shadow-lg border border-white z-50 p-2'>
+										<div className='flex flex-col divide-y divide-white/20'>
 											<Link
 												to={`/${language}/profile`}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base'
 											>
 												<FaUser />
 												Profilim
 											</Link>
 											<Link
 												to={`/${language}/my-teams`}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base'
 											>
 												<FaUsers />
 												Mening jamoalarim
 											</Link>
 											<Link
 												to={`/${language}/my-tournaments`}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base'
 											>
 												<FaTrophy />
 												Mening turnirlarim
 											</Link>
 											<Link
 												to={`/${language}/messages`}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base'
 											>
 												<FaComments />
 												Xabarlar
 											</Link>
 											<Link
 												to={`/${language}/settings`}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base'
 											>
 												<FaCog />
 												Sozlamalar
 											</Link>
 											<button
 												onClick={handleLogout}
-												className="flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base w-full text-left"
+												className='flex items-center gap-3 px-4 py-2 text-white hover:text-[#ff9600] transition text-base w-full text-left'
 											>
-												<FaSignOutAlt className="text-red-400" />
+												<FaSignOutAlt className='text-red-400' />
 												Saytdan chiqish
 											</button>
 										</div>
-										<div className="flex justify-center gap-6 mt-4 pb-2">
-											<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#ff9600] text-2xl"><FaInstagram /></a>
-											<a href="https://t.me" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#ff9600] text-2xl"><FaTelegram /></a>
-											<a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#ff9600] text-2xl"><FaYoutube /></a>
+										<div className='flex justify-center gap-6 mt-4 pb-2'>
+											<a
+												href='https://instagram.com'
+												target='_blank'
+												rel='noopener noreferrer'
+												className='text-white hover:text-[#ff9600] text-2xl'
+											>
+												<FaInstagram />
+											</a>
+											<a
+												href='https://t.me'
+												target='_blank'
+												rel='noopener noreferrer'
+												className='text-white hover:text-[#ff9600] text-2xl'
+											>
+												<FaTelegram />
+											</a>
+											<a
+												href='https://youtube.com'
+												target='_blank'
+												rel='noopener noreferrer'
+												className='text-white hover:text-[#ff9600] text-2xl'
+											>
+												<FaYoutube />
+											</a>
 										</div>
 									</div>
 								)}
@@ -447,8 +489,9 @@ const Navbar = () => {
 
 			{/* Mobile menu */}
 			<div
-				className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-					} overflow-hidden`}
+				className={`md:hidden transition-all duration-300 ease-in-out ${
+					isMobileMenuOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+				} overflow-hidden`}
 			>
 				<div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900/95 backdrop-blur-sm'>
 					{navLinks.map(link => (
@@ -460,8 +503,9 @@ const Navbar = () => {
 								>
 									{link.name}
 									<svg
-										className={`w-5 h-5 transition-transform duration-300 ${activeDropdown === link.key ? 'rotate-180' : ''
-											}`}
+										className={`w-5 h-5 transition-transform duration-300 ${
+											activeDropdown === link.key ? 'rotate-180' : ''
+										}`}
 										fill='none'
 										viewBox='0 0 24 24'
 										stroke='currentColor'
@@ -485,10 +529,11 @@ const Navbar = () => {
 							)}
 							{link.dropdownItems.length > 0 && (
 								<div
-									className={`pl-4 space-y-1 transition-all duration-300 ${activeDropdown === link.key
-										? 'max-h-[500px] opacity-100'
-										: 'max-h-0 opacity-0'
-										} overflow-hidden`}
+									className={`pl-4 space-y-1 transition-all duration-300 ${
+										activeDropdown === link.key
+											? 'max-h-[500px] opacity-100'
+											: 'max-h-0 opacity-0'
+									} overflow-hidden`}
 								>
 									{link.dropdownItems.map((item, index) => (
 										<Link
@@ -544,15 +589,17 @@ const Navbar = () => {
 						<div className='px-4 py-3 space-y-3'>
 							<button
 								onClick={handleTournamentsClick}
-								className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${activeSection === 'turnirlar' ? 'text-[#FF9600]' : ''
-									}`}
+								className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${
+									activeSection === 'turnirlar' ? 'text-[#FF9600]' : ''
+								}`}
 							>
 								{getTournamentsText()}
 							</button>
 							<button
 								onClick={handleProfileClick}
-								className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${activeSection === 'profile' ? 'text-[#FF9600]' : ''
-									}`}
+								className={`block w-full text-left text-white hover:text-[#FF9600] transition-colors duration-300 font-medium ${
+									activeSection === 'profile' ? 'text-[#FF9600]' : ''
+								}`}
 							>
 								{getProfileText()}
 							</button>
